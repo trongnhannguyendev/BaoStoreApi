@@ -23,8 +23,8 @@
         
         //checking if the user is already exist with this fullname or email
         //as the email and fullname should be unique for every user 
-        $stmt = $conn->prepare("SELECT userid FROM tblusers WHERE fullname = ? OR email = ?");
-        $stmt->bind_param("ss", $fullname, $email);
+        $stmt = $conn->prepare("SELECT userid FROM tblusers WHERE phonenumber=? OR email = ?");
+        $stmt->bind_param("ss", $phonenumber, $email);
         $stmt->execute();
         $stmt->store_result();
         
