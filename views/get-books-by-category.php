@@ -12,7 +12,7 @@ $response = null;
 
 try {
     if (
-        isset($data->categoryid)
+        isset($data->categoryID)
     ) {
         $response = (new BookController())->getBooksByCategory($data->categoryID);
     } else {

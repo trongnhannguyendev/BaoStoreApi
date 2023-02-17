@@ -12,14 +12,14 @@ include_once '../models/categories.php';
         public function getAllCategories(){
             $response = Response::getDefaultInstance();
         try {
-            $query = "SELECT CATEGORIYID, CATEGORIYNAME";
+            $query = "SELECT CATEGORYID, CATEGORYNAME FROM TBLCATEGORIES";
             $stmt = $this->connect->prepare($query);
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $stmt->execute();
             $listCates = [];
             while ($row = $stmt->fetch()) {
                 extract($row);
-                $cates = new Categories($CATEGORIYID,$CATEGORIYNAME);
+                $cates = new Categories($CATEGORYID,$CATEGORYNAME);
                 array_push($listCates, $cates);
             }
             $response->setMessage("get all cate success");
