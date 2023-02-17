@@ -11,4 +11,7 @@ class BookController{
     {
         return $this->services->getAllBooks();
     }
+    public function getBooksByCategory($categoryID){
+        return $this->services->getBooksByCategory($categoryID);
+    }
 }
