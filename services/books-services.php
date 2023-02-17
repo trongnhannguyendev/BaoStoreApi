@@ -9,6 +9,7 @@ class BookServices
     {
         $this->connect = (new DBConfig())->getConnect();
     }
+
     public function getAllBooks()
     {
         $response = Response::getDefaultInstance();
@@ -19,6 +20,33 @@ class BookServices
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $stmt->execute();
             $listBook = [];
+            while ($row = $stmt->fetch()) {
+                extract($row);
+                $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $URL);
+                array_push($listBook, $books);
+            }
+            $response->setMessage("get all books success");
+            $response->setError(false);
+            $response->setResponeCode(1);
+            $response->setData($listBook);
+        } catch (Exception $e) {
+            $response->setMessage($e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(0);
+        }
+        return $response;
+    }
+
+    public function getBookDetail($bookId)
+    {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "";
+            $stmt = $this->connect->prepare($query);
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $stmt->execute();
+            $listBook = [];
+            $listImage = [];
             while ($row = $stmt->fetch()) {
                 extract($row);
                 $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $URL);
