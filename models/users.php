@@ -1,31 +1,31 @@
 <?php
     
     class User{
-        public $userid;
+        public $userID;
         public $email;
         public $password;
-        public $fullname;
-        public $phonenumber;
+        public $fullName;
+        public $phoneNumber;
         public $role;
         public $state;
 
-        function __construct($userid,$email,$password,$fullname,$phonenumber,$role,$state)
+        function __construct($userID,$email,$password,$fullName,$phoneNumber,$role,$state)
         {
-            $this -> userid = $userid;
+            $this -> userID = $userID;
             $this -> email = $email;
             $this -> password = $password;
-            $this -> fullname = $fullname;
-            $this -> phonenumber = $phonenumber;
+            $this -> fullName = $fullName;
+            $this -> phoneNumber = $phoneNumber;
             $this -> role = $role;
             $this -> state = $state;
         }
 
-        public function getUserid(){
-            return $this->userid;
+        public function getuserID(){
+            return $this->userID;
         }
 
-        public function setUserid($userid):self{
-            $this ->userid = $userid;
+        public function setuserID($userID):self{
+            $this ->userID = $userID;
             return $this;
         }
 
@@ -47,21 +47,21 @@
             return $this;
         }
 
-        public function getFullname(){
-            return $this->fullname;
+        public function getfullName(){
+            return $this->fullName;
         }
 
-        public function setFullname($fullname):self{
-            $this ->fullname = $fullname;
+        public function setfullName($fullName):self{
+            $this ->fullName = $fullName;
             return $this;
         }
 
-        public function getPhoneNumber(){
-            return $this->phonenumber;
+        public function getphoneNumber(){
+            return $this->phoneNumber;
         }
 
-        public function setPhoneNumber($phonenumber):self{
-            $this ->phonenumber = $phonenumber;
+        public function setphoneNumber($phoneNumber):self{
+            $this ->phoneNumber = $phoneNumber;
             return $this;
         }
 
