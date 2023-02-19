@@ -1,147 +1,86 @@
 <?php
+    
     class User{
-        public $userid;
+        public $userID;
         public $email;
         public $password;
-        public $fullname;
-        public $phonenumber;
+        public $fullName;
+        public $phoneNumber;
         public $role;
         public $state;
+
+        function __construct($userID,$email,$password,$fullName,$phoneNumber,$role,$state)
+        {
+            $this -> userID = $userID;
+            $this -> email = $email;
+            $this -> password = $password;
+            $this -> fullName = $fullName;
+            $this -> phoneNumber = $phoneNumber;
+            $this -> role = $role;
+            $this -> state = $state;
+        }
+
+        public function getuserID(){
+            return $this->userID;
+        }
+
+        public function setuserID($userID):self{
+            $this ->userID = $userID;
+            return $this;
+        }
+
+        public function getEmail(){
+            return $this->email;
+        }
+
+        public function setEmail($email):self{
+            $this ->email = $email;
+            return $this;
+        }
+
+        public function getPassword(){
+            return $this->password;
+        }
+
+        public function setPassword($password):self{
+            $this ->password = $password;
+            return $this;
+        }
+
+        public function getfullName(){
+            return $this->fullName;
+        }
+
+        public function setfullName($fullName):self{
+            $this ->fullName = $fullName;
+            return $this;
+        }
+
+        public function getphoneNumber(){
+            return $this->phoneNumber;
+        }
+
+        public function setphoneNumber($phoneNumber):self{
+            $this ->phoneNumber = $phoneNumber;
+            return $this;
+        }
+
+        public function getRole(){
+            return $this->role;
+        }
+
+        public function setRole($role):self{
+            $this ->role = $role;
+            return $this;
+        }
+
+        public function getState(){
+            return $this->state;
+        }
+
+        public function setState($state):self{
+            $this ->state = $state;
+            return $this;
+        }
         
-        public function __construct($userid, $email, $password, $fullname, $phonenumber, $role, $state) {
-            $this->userid = $userid;
-            $this->email = $email;
-            $this->password = $password;
-            $this->fullname = $fullname;
-            $this->phonenumber = $phonenumber;
-            $this->role = $role;
-            $this->state = $state;
-        }
-        
-
-        /**
-         * Get the value of userid
-         */
-        public function getUserid()
-        {
-                return $this->userid;
-        }
-
-        /**
-         * Set the value of userid
-         */
-        public function setUserid($userid): self
-        {
-                $this->userid = $userid;
-
-                return $this;
-        }
-
-        /**
-         * Get the value of email
-         */
-        public function getEmail()
-        {
-                return $this->email;
-        }
-
-        /**
-         * Set the value of email
-         */
-        public function setEmail($email): self
-        {
-                $this->email = $email;
-
-                return $this;
-        }
-
-        /**
-         * Get the value of password
-         */
-        public function getPassword()
-        {
-                return $this->password;
-        }
-
-        /**
-         * Set the value of password
-         */
-        public function setPassword($password): self
-        {
-                $this->password = $password;
-
-                return $this;
-        }
-
-        /**
-         * Get the value of fullname
-         */
-        public function getFullname()
-        {
-                return $this->fullname;
-        }
-
-        /**
-         * Set the value of fullname
-         */
-        public function setFullname($fullname): self
-        {
-                $this->fullname = $fullname;
-
-                return $this;
-        }
-
-        /**
-         * Get the value of phonenumber
-         */
-        public function getPhonenumber()
-        {
-                return $this->phonenumber;
-        }
-
-        /**
-         * Set the value of phonenumber
-         */
-        public function setPhonenumber($phonenumber): self
-        {
-                $this->phonenumber = $phonenumber;
-
-                return $this;
-        }
-
-        /**
-         * Get the value of role
-         */
-        public function getRole()
-        {
-                return $this->role;
-        }
-
-        /**
-         * Set the value of role
-         */
-        public function setRole($role): self
-        {
-                $this->role = $role;
-
-                return $this;
-        }
-
-        /**
-         * Get the value of state
-         */
-        public function getState()
-        {
-                return $this->state;
-        }
-
-        /**
-         * Set the value of state
-         */
-        public function setState($state): self
-        {
-                $this->state = $state;
-
-                return $this;
-        }
     }
