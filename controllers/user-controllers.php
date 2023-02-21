@@ -1,5 +1,5 @@
 <?php
-include_once '../services/user-services.php';
+include_once '../services/users-services.php';
 
 class UserController{
     private $services;
@@ -9,16 +9,12 @@ class UserController{
     }
     public function postLogin($email, $password)
     {
-        if($_POST){
             return $this->services->login($email,$password);
-        }
         
     }
 
     public function postSignup($fullname,$email,$password,$phonenumber){
-        if($_POST){
             return $this->services->signup($fullname,$email,$password,$phonenumber);
-        }
     }
 }
 

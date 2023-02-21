@@ -22,12 +22,10 @@ class UserServices{
         $count = $stmt->rowCount();
         $data = $stmt->fetch(PDO::FETCH_OBJ);
 
-        $userid = $data->userid;
         $fullname = $data->fullname;
-        $phonenumber = $data->phonenumber;
 
         if($count){
-            return $userid." ".$email." ".$fullname." ".$phonenumber;
+            return "Wellcome back: ".$fullname;
         } else{
             return "User doesn't exist";
         }
@@ -39,14 +37,6 @@ class UserServices{
 
 
     public function signup($fullname,$email,$password,$phonenumber){
-        
-        $fullname = $_POST['fullname']; 
-        $email = $_POST['email']; 
-        $password = ($_POST['password']);
-        $phonenumber = $_POST['phonenumber']; 
-        
-        //checking if the user is already exist with this fullname or email
-        //as the email and fullname should be unique for every user 
         $stmt = $this->connect->prepare("SELECT userid FROM tblusers WHERE phonenumber=:phonenumber OR email =:email");
         $stmt->bindParam("phonenumber", $phonenumber,PDO::PARAM_STR);
         $stmt->bindParam("email", $email,PDO::PARAM_STR);
@@ -67,6 +57,7 @@ class UserServices{
         $stmt->bindParam("password", $password);
         $stmt->bindParam("phonenumber", $phonenumber);
         
+
         //if the user is successfully added to the database 
         if($stmt->execute()){
         
