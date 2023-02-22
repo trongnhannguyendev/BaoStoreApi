@@ -1,17 +1,23 @@
 <?php
 include_once '../services/addresses-services.php';
 
-class AddressController{
+class AddressController
+{
     private $services;
     public function __construct()
     {
         $this->services = new AddressServices();
     }
-    public function getAllAddresses()
+    // public function getAllAddresses()
+    // {
+    //     return $this->services->getAllAddresses();
+    // }
+    // public function getAddressesByUser($userID)
+    // {
+    //     return $this->services->getAddressesByUser($userID);
+    // }
+    public function getAllAddressesByUserID($userID)
     {
-        return $this->services->getAllAddresses();
-    }
-    public function getaddressesByUser($userID){
-        return $this->services->getaddressesByUser($userID);
+        return $this->services->getAllAddressesByUserID($userID);
     }
 }

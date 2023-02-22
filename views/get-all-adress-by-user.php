@@ -14,7 +14,7 @@ try {
     if (
         isset($data->userID)
     ) {
-        $response = (new AddressController())->getaddressesByUser($data->userID);
+        $response = (new AddressController())->getAllAddressesByUserID($data->userID);
     } else {
         $response = new Response(3, true, "Can't load addresses by user you choose", null);
     }
