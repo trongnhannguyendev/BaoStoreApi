@@ -7,8 +7,12 @@ class CategoryController{
     {
         $this->services = new PublishersService();
     }
-    public function getAllCategories()
-    {
+    // fix wrong function
+    // public function getAllCategories()
+    // {
+    //     return $this->services->getAllPublishers();
+    // }
+    public function getAllPublishers(){
         return $this->services->getAllPublishers();
     }
    

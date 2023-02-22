@@ -16,16 +16,16 @@ include_once '../models/publishers.php';
             $stmt = $this->connect->prepare($query);
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $stmt->execute();
-            $listCates = [];
+            $listPublishers = [];
             while ($row = $stmt->fetch()) {
                 extract($row);
-                $cates = new Publishers($PUBLISHERID,$PUBLISHERNAME);
-                array_push($listCates, $cates);
+                $publisher = new Publishers($PUBLISHERID,$PUBLISHERNAME);
+                array_push($listPublishers, $publisher);
             }
-            $response->setMessage("get all cate success");
+            $response->setMessage("get all publishers success");
             $response->setError(false);
             $response->setResponeCode(1);
-            $response->setData($listCates);
+            $response->setData($listPublishers);
         } catch (Exception $e) {
             $response->setMessage($e->getMessage());
             $response->setError(true);
