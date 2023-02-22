@@ -114,4 +114,16 @@ class UserServices
     //         }
     //     }
     // }
+
+    public function getRegiserUser($data)
+    {
+    }
+
+    public function getUpdateFullName($data)
+    {
+    }
+
+    public function getUpdatePhoneNumber($data)
+    {
+    }
 }
