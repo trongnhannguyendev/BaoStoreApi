@@ -1,7 +1,8 @@
 <?php
 include_once '../services/user-services.php';
 
-class UserController{
+class UserController
+{
     private $services;
     public function __construct()
     {
@@ -12,7 +13,7 @@ class UserController{
     //     if($_POST){
     //         return $this->services->login($email,$password);
     //     }
-        
+
     // }
 
     // public function postSignup($fullname,$email,$password,$phonenumber){
@@ -49,6 +50,39 @@ class UserController{
         }
         return $response;
     }
-}
 
-?>
+    public function getRegiserUser($data)
+    {
+        return $this->services->getRegiserUser($data);
+    }
+
+    public function getUpdateFullName($data)
+    {
+        return $this->services->getUpdateFullName($data);
+    }
+
+    public function getUpdatePhoneNumber($data)
+    {
+        return $this->services->getUpdatePhoneNumber($data);
+    }
+
+    public function getUpdatePassword($data)
+    {
+        return $this->services->getUpdatePassword($data);
+    }
+
+    public function getUpdateEmail($data)
+    {
+        return $this->services->getUpdateEmail($data);
+    }
+
+    public function activeUser($data)
+    {
+        return $this->services->activeUser($data);
+    }
+
+    public function deactiveUser($data)
+    {
+        return $this->services->deactiveUser($data);
+    }
+}

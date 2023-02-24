@@ -11,13 +11,15 @@ $data = json_decode(file_get_contents("php://input"));
 $response = null;
 
 try {
-    if (isset($data->email) && isset($data->password)) {
-        $response = (new UserController())->checkLogin($data->email, $data->password);
+    if (
+        isset($data->email)
+    ) {
+        $response = (new UserController())->getUserByEmail($data->email);
     } else {
-        $response = new Response(3, true, 'Client error cannot get email from client', null);
+        $response = new Response(3, true, "Client error" . "Not enough parameters", null);
     }
 } catch (Exception $ex) {
-    $response = new Response(4, true, 'Server error' . $ex->getMessage(), null);
+    $response = new Response(4, true, "APi error" . "Not enough parameters", null);
 }
 
 echo json_encode($response);
