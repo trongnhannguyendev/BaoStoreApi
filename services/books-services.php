@@ -11,40 +11,12 @@ class BookServices
         $this->connect = (new DBConfig())->getConnect();
     }
 
-    // public function getAllBooks()
-    // {
-    //     $response = Response::getDefaultInstance();
-    //     try {
-    //         $query = "SELECT TBLBS.BOOKID, TITLE, PRICE, QUANTITY,CATEGORYID, AUTHORID, PUBLISHERID, URL,
-    //              ISDEFAULT FROM TBLBOOKS TBLBS INNER JOIN TBLIMAGES TBLIMG ON TBLBS.BOOKID = TBLIMG.BOOKID HAVING ISDEFAULT = 1";
-    //         $stmt = $this->connect->prepare($query);
-    //         $stmt->setFetchMode(PDO::FETCH_ASSOC);
-    //         $stmt->execute();
-    //         $listBook = [];
-    //         while ($row = $stmt->fetch()) {
-    //             extract($row);
-    //             $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $URL);
-    //             array_push($listBook, $books);
-    //         }
-    //         $response->setMessage("get all books success");
-    //         $response->setError(false);
-    //         $response->setResponeCode(1);
-    //         $response->setData($listBook);
-    //     } catch (Exception $e) {
-    //         $response->setMessage($e->getMessage());
-    //         $response->setError(true);
-    //         $response->setResponeCode(0);
-    //     }
-    //     return $response;
-    // }
-
     public function getAllBooks()
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "SELECT TBLBS.BOOKID, TITLE, PRICE, QUANTITY,CATEGORYID, AUTHORID, PUBLISHERID, URL,ISDEFAULT FROM TBLBOOKS TBLBS
-             INNER JOIN TBLIMAGES TBLIMG ON TBLBS.BOOKID = TBLIMG.BOOKID HAVING ISDEFAULT = 1 AND TITLE LIKE '%"."Gone"."%'";
-             error_log($query);
+            $query = "SELECT TBLBS.BOOKID, TITLE, PRICE, QUANTITY,CATEGORYID, AUTHORID, PUBLISHERID, URL,
+                 ISDEFAULT FROM TBLBOOKS TBLBS INNER JOIN TBLIMAGES TBLIMG ON TBLBS.BOOKID = TBLIMG.BOOKID HAVING ISDEFAULT = 1";
             $stmt = $this->connect->prepare($query);
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $stmt->execute();
@@ -65,6 +37,8 @@ class BookServices
         }
         return $response;
     }
+
+
     public function getBookDetail($bookId)
     {
         $response = Response::getDefaultInstance();
@@ -119,13 +93,12 @@ class BookServices
         }
         return $response;
     }
-    
+
     // fix
     public function getBooksBySearchKey($searchKey)
     {
-        $response = Response::getDefaultInstance();
-        try {
-
+        // $response = Response::getDefaultInstance();
+        // try {
         //     $query = "SELECT TBLBS.BOOKID, TITLE, PRICE, QUANTITY,CATEGORYID, AUTHORID, PUBLISHERID, URL,ISDEFAULT FROM 
         //         TBLBOOKS TBLBS INNER JOIN TBLIMAGES TBLIMG ON TBLBS.BOOKID = TBLIMG.BOOKID HAVING ISDEFAULT = 1 AND TITLE LIKE "."'"."?'".'%"''.'"';
         //     error_log($searchKey);
@@ -144,11 +117,11 @@ class BookServices
         //     $response->setError(false);
         //     $response->setResponeCode(1);
         //     $response->setData($listBooks);
-        } catch (Exception $e) {
+        // } catch (Exception $e) {
         //     $response->setMessage($e->getMessage());
         //     $response->setError(true);
         //     $response->setResponeCode(0);
-        }
+        // }
         // return $response;
     }
 
@@ -157,7 +130,7 @@ class BookServices
         $response = Response::getDefaultInstance();
         try {
             //code...
-        } catch (\Throwable $th) {
+        } catch (Exception $e) {
             //throw $th;
         }
     }

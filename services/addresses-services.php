@@ -70,7 +70,7 @@ class AddressServices
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "SELECT ADDRESSID, LOCATION, WARD, DISTRICT, CITY, ADDRESSNAME, ISDEFAULT, USERID FROM TBLADDRESSES
+            $query = "SELECT ADDRESSID, USERID, LOCATION, WARD, DISTRICT, CITY, ADDRESSNAME, ISDEFAULT FROM TBLADDRESSES
                 WHERE USERID =?";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $userID);
@@ -79,7 +79,7 @@ class AddressServices
             $listAddresss = [];
             while ($row = $stmt->fetch()) {
                 extract($row);
-                $addresses = new Addresses($ADDRESSID, $LOCATION, $WARD, $DISTRICT, $CITY, $ADDRESSNAME, $ISDEFAULT, $USERID);
+                $addresses = new Addresses($ADDRESSID, $USERID, $LOCATION, $WARD, $DISTRICT, $CITY, $ADDRESSNAME, $ISDEFAULT);
                 array_push($listAddresss, $addresses);
             }
             $response->setMessage("get addresses by category success");

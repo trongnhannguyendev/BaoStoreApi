@@ -1,123 +1,57 @@
 <?php
-    class Addresses{
-        public $addressID;
+class Addresses
+{
+        public $addressid;
+        public $userID;
         public $location;
         public $ward;
         public $district;
         public $city;
-        public $addressName;
-        public $isDefault;
-        public $userID;
+        public $addressname;
+        public $isdefault;
 
-        public function __construct($addressID, $location,$ward,$district,$city,$addressName,$isDefault,$userID){
-            $this->addressID = $addressID;
-            $this->location = $location;
-            $this->ward = $ward;
-            $this->district = $district;
-            $this->city = $city;
-            $this->addressName = $addressName;
-            $this->isDefault = $isDefault;
-            $this->userID = $userID;
-        }
-        
-        public function getAddressID()
+
+        public function __construct($addressid, $userID, $location, $ward, $district, $city, $addressname, $isdefault)
         {
-                return $this->addressID;
-        }
-
-        
-        public function setAddressID($categoryID): self
-        {
-                $this->addressID = $categoryID;
-
-                return $this;
-        }
-
-        public function getLocation()
-        {
-                return $this->location;
-        }
-
-        
-        public function setLocation($location): self
-        {
+                $this->addressid = $addressid;
+                $this->userID = $userID;
                 $this->location = $location;
-
-                return $this;
-        }
-
-        public function getWard()
-        {
-                return $this->ward;
-        }
-
-        
-        public function setWard($ward): self
-        {
                 $this->ward = $ward;
-
-                return $this;
-        }
-
-        public function getDistrict()
-        {
-                return $this->district;
-        }
-
-        
-        public function setDistrict($district): self
-        {
                 $this->district = $district;
-
-                return $this;
-        }
-
-        public function getCity()
-        {
-                return $this->city;
-        }
-
-        
-        public function setCity($city): self
-        {
                 $this->city = $city;
+                $this->addressname = $addressname;
+                $this->isdefault = $isdefault;
+        }
+
+        /**
+         * Get the value of addressid
+         */
+        public function getAddressid()
+        {
+                return $this->addressid;
+        }
+
+        /**
+         * Set the value of addressid
+         */
+        public function setAddressid($addressid): self
+        {
+                $this->addressid = $addressid;
 
                 return $this;
         }
 
-        public function getAddressName()
-        {
-                return $this->addressName;
-        }
-
-        
-        public function setAddressName($addressName): self
-        {
-                $this->addressName = $addressName;
-
-                return $this;
-        }
-
-        public function getIsDefault()
-        {
-                return $this->isDefault;
-        }
-
-        
-        public function setIsDefault($isDefault): self
-        {
-                $this->isDefault = $isDefault;
-
-                return $this;
-        }
-
-
+        /**
+         * Get the value of userID
+         */
         public function getUserID()
         {
                 return $this->userID;
         }
 
-        
+        /**
+         * Set the value of userID
+         */
         public function setUserID($userID): self
         {
                 $this->userID = $userID;
@@ -125,4 +59,111 @@
                 return $this;
         }
 
-    }
+        /**
+         * Get the value of location
+         */
+        public function getLocation()
+        {
+                return $this->location;
+        }
+
+        /**
+         * Set the value of location
+         */
+        public function setLocation($location): self
+        {
+                $this->location = $location;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of ward
+         */
+        public function getWard()
+        {
+                return $this->ward;
+        }
+
+        /**
+         * Set the value of ward
+         */
+        public function setWard($ward): self
+        {
+                $this->ward = $ward;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of district
+         */
+        public function getDistrict()
+        {
+                return $this->district;
+        }
+
+        /**
+         * Set the value of district
+         */
+        public function setDistrict($district): self
+        {
+                $this->district = $district;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of city
+         */
+        public function getCity()
+        {
+                return $this->city;
+        }
+
+        /**
+         * Set the value of city
+         */
+        public function setCity($city): self
+        {
+                $this->city = $city;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of addressname
+         */
+        public function getAddressname()
+        {
+                return $this->addressname;
+        }
+
+        /**
+         * Set the value of addressname
+         */
+        public function setAddressname($addressname): self
+        {
+                $this->addressname = $addressname;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of isdefault
+         */
+        public function getIsdefault()
+        {
+                return $this->isdefault;
+        }
+
+        /**
+         * Set the value of isdefault
+         */
+        public function setIsdefault($isdefault): self
+        {
+                $this->isdefault = $isdefault;
+
+                return $this;
+        }
+}

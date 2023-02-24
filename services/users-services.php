@@ -37,30 +37,6 @@ class UserServices
     //         echo '{"error":{"text":' . $e->getMessage() . '}}';
     //     }
     // }
-    public function getUserByEmail($email)
-    {
-        $response = Response::getDefaultInstance();
-        try {
-            $query = "SELECT USERID, EMAIL, PASSWORD, FULLNAME, PHONENUMBER FROM TBLUSERS WHERE EMAIL = ?";
-
-            $stmt = $this->connect->prepare($query);
-            $stmt->bindParam(1, $email);
-            $stmt->execute();
-            $listUsers = [];
-            if ($stmt->rowCount() > 0) {
-                $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                extract($row);
-                $user = new User($USERID, $EMAIL, $PASSWORD, $FULLNAME, $PHONENUMBER, $ROLE, $STATE);
-                array_push($listUsers, $user);
-                $response->setData($listUsers);
-                $response->setResponeCode(1);
-            }
-        } catch (Exception $ex) {
-            $response->setError(true);
-            $response->setMessage($ex->getMessage());
-        }
-        return $response;
-    }
 
     //fix
     // public function signup($fullname, $email, $password, $phonenumber)
@@ -115,15 +91,258 @@ class UserServices
     //     }
     // }
 
+    public function getUserByEmail($email)
+    {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "SELECT USERID, EMAIL, PASSWORD, FULLNAME, PHONENUMBER, ROLE, STATE FROM TBLUSERS WHERE EMAIL = ?";
+
+            $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $email);
+            $stmt->execute();
+            $listUsers = [];
+            if ($stmt->rowCount() > 0) {
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                extract($row);
+                $user = new User($USERID, $EMAIL, $PASSWORD, $FULLNAME, $PHONENUMBER, $ROLE, $STATE);
+                array_push($listUsers, $user);
+                $response->setData($listUsers);
+                $response->setResponeCode(1);
+            }
+        } catch (Exception $e) {
+            $response->setError(true);
+            $response->setMessage($e->getMessage());
+        }
+        return $response;
+    }
+
+
     public function getRegiserUser($data)
     {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "INSERT INTO TBLUSERS SET USERID = NULL, EMAIL =?, PASSWORD =?, FULLNAME = NULL, PHONENUMBER = NULL, ROLE = 1, STATE = 1";
+            $stmt = $this->connect->prepare($query);
+
+            $stmt->bindParam(1, $data->email);
+            $stmt->bindParam(2, $data->password);
+            $this->connect->beginTransaction();
+
+            if ($stmt->execute()) {
+                $this->connect->commit();
+                $response->setMessage("Regiser user success");
+                $response->setError(false);
+                $response->setResponeCode(1);
+            } else {
+                $this->connect->rollBack();
+                $response->setMessage("Regiser user failed");
+                $response->setError(true);
+                $response->setResponeCode(0);
+            }
+        } catch (Exception $e) {
+
+            $response->setMessage("  Insert user failed " . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(5);
+        }
+        return $response;
     }
 
     public function getUpdateFullName($data)
     {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "UPDATE  TBLUSERS SET  FULLNAME = ? WHERE EMAIL = ?";
+            $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $data->fullname);
+            $stmt->bindParam(4, $data->email);
+
+            $this->connect->beginTransaction();
+
+            if ($stmt->execute()) {
+                $this->connect->commit();
+                $response->setMessage("update fullname success");
+                $response->setError(false);
+                $response->setResponeCode(1);
+            } else {
+                $this->connect->rollBack();
+                $response->setMessage("update fullname failed");
+                $response->setError(true);
+                $response->setResponeCode(0);
+            }
+        } catch (Exception $e) {
+
+            $response->setMessage("update failed " . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(5);
+        }
+        return $response;
     }
 
     public function getUpdatePhoneNumber($data)
     {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "UPDATE  TBLUSERS SET  PHONENUMBER = ? WHERE EMAIL = ?";
+            $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $data->phonenumber);
+            $stmt->bindParam(4, $data->email);
+
+            $this->connect->beginTransaction();
+
+            if ($stmt->execute()) {
+                $this->connect->commit();
+                $response->setMessage("update phone number success");
+                $response->setError(false);
+                $response->setResponeCode(1);
+            } else {
+                $this->connect->rollBack();
+                $response->setMessage("update phone number failed");
+                $response->setError(true);
+                $response->setResponeCode(0);
+            }
+        } catch (Exception $e) {
+
+            $response->setMessage("update failed " . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(5);
+        }
+        return $response;
+    }
+
+    public function getUpdatePassword($data)
+    {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "UPDATE TBLUSERS SET
+                PASSWORD = ?
+                WHERE EMAIL = ?";
+            $stmt = $this->connect->prepare($query);
+
+            $stmt->bindParam(1, $data->password);
+            $stmt->bindParam(2, $data->email);
+
+            $this->connect->beginTransaction();
+
+            if ($stmt->execute()) {
+                $this->connect->commit();
+                $response->setMessage("update password success");
+                $response->setError(false);
+                $response->setResponeCode(1);
+            } else {
+                $this->connect->rollBack();
+                $response->setMessage("update password failed");
+                $response->setError(true);
+                $response->setResponeCode(0);
+            }
+        } catch (Exception $e) {
+
+            $response->setMessage("update failed " . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(5);
+        }
+        return $response;
+    }
+
+    public function getUpdateEmail($data)
+    {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "UPDATE TBLUSERS SET
+                EMAIL = ?
+                WHERE USERID = ?";
+            $stmt = $this->connect->prepare($query);
+
+            $stmt->bindParam(1, $data->email);
+            $stmt->bindParam(2, $data->userid);
+
+            $this->connect->beginTransaction();
+
+            if ($stmt->execute()) {
+                $this->connect->commit();
+                $response->setMessage("update email success");
+                $response->setError(false);
+                $response->setResponeCode(1);
+            } else {
+                $this->connect->rollBack();
+                $response->setMessage("update email failed");
+                $response->setError(true);
+                $response->setResponeCode(0);
+            }
+        } catch (Exception $e) {
+
+            $response->setMessage("update failed " . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(5);
+        }
+        return $response;
+    }
+
+    public function activeUser($email)
+    {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "UPDATE TBLACCOUNT SET
+                STATE = 0
+                WHERE EMAIL = ?";
+            $stmt = $this->connect->prepare($query);
+
+
+            $stmt->bindParam(1, $email);
+
+            $this->connect->beginTransaction();
+
+            if ($stmt->execute()) {
+                $this->connect->commit();
+                $response->setMessage("Active user success");
+                $response->setError(false);
+                $response->setResponeCode(1);
+            } else {
+                $this->connect->rollBack();
+                $response->setMessage("Active user failed");
+                $response->setError(true);
+                $response->setResponeCode(0);
+            }
+        } catch (Exception $e) {
+
+            $response->setMessage("Active failed " . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(5);
+        }
+        return $response;
+    }
+
+    public function deactiveUser($email)
+    {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "UPDATE TBLACCOUNT SET
+                STATE = 1
+                WHERE EMAIL = ?";
+            $stmt = $this->connect->prepare($query);
+
+
+            $stmt->bindParam(1, $email);
+
+            $this->connect->beginTransaction();
+
+            if ($stmt->execute()) {
+                $this->connect->commit();
+                $response->setMessage("Deactive user success");
+                $response->setError(false);
+                $response->setResponeCode(1);
+            } else {
+                $this->connect->rollBack();
+                $response->setMessage("Deactive user failed");
+                $response->setError(true);
+                $response->setResponeCode(0);
+            }
+        } catch (Exception $e) {
+
+            $response->setMessage("Deactive failed " . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(5);
+        }
+        return $response;
     }
 }
