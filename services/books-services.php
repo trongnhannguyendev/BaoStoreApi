@@ -1,6 +1,6 @@
 <?php
 include_once '../configs/dbconfig.php';
-include_once '../models/Books.php';
+include_once '../models/books.php';
 include_once '../models/respone.php';
 include_once '../models/categories.php';
 class BookServices
