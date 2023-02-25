@@ -38,9 +38,30 @@ class CartsServices
     {
         $response = Response::getDefaultInstance();
         try {
-            //code...
+            $query = "INSERT INTO TBLCARTS SET USERID =?, BOOKID = ?, QUANTITY = ? ";
+            $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $data->userID);
+            $stmt->bindParam(2, $data->bookID);
+            $stmt->bindParam(3, $data->quantity);
+            $this->connect->beginTransaction();
+
+            if ($stmt->execute()) {
+                $this->connect->commit();
+                $response->setMessage("Insert cart success");
+                $response->setError(false);
+                $response->setResponeCode(1);
+            } else {
+                $this->connect->rollBack();
+                $response->setMessage("Insert cart failed");
+                $response->setError(true);
+                $response->setResponeCode(0);
+            }
         } catch (Exception $e) {
-            //throw $th;
+
+            $response->setMessage("Insert cart failed " . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(5);
         }
+        return $response;
     }
 }

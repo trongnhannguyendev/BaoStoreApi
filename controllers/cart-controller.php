@@ -12,4 +12,8 @@ class CartController
     {
         return $this->services->getAllCartsByUserID($userID);
     }
+    public function insertCart($data)
+    {
+        return $this->services->insertCart($data);
+    }
 }
