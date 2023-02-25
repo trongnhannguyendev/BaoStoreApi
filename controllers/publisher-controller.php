@@ -1,7 +1,8 @@
 <?php
 include_once '../services/publishers-services.php';
 
-class CategoryController{
+class PublisherController
+{
     private $services;
     public function __construct()
     {
@@ -12,8 +13,8 @@ class CategoryController{
     // {
     //     return $this->services->getAllPublishers();
     // }
-    public function getAllPublishers(){
+    public function getAllPublishers()
+    {
         return $this->services->getAllPublishers();
     }
-   
 }
