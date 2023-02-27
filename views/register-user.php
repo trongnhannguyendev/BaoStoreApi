@@ -11,21 +11,21 @@ $data = json_decode(file_get_contents("php://input"));
 $response = null;
 
 try {
-    // if (
-    //     isset($data->email) && isset($data->password) && isset($data->fullname) && isset($data->phonenumber)
-    //     && isset($data->address)
-    // ) {
-    //     $response = (new UserController())->getRegiserUser($data);
-    // } else {
-    //     $response = new Response(3, true, "Client error" . "Not enough parameters", null);
-    // }
     if (
-        isset($data->email) && isset($data->password)
+        isset($data->email) && isset($data->password) && isset($data->fullname) && isset($data->phonenumber)
+
     ) {
         $response = (new UserController())->getRegiserUser($data);
     } else {
         $response = new Response(3, true, "Client error" . "Not enough parameters", null);
     }
+    // if (
+    //     isset($data->email) && isset($data->password)
+    // ) {
+    //     $response = (new UserController())->getRegiserUser($data);
+    // } else {
+    //     $response = new Response(3, true, "Client error" . "Not enough parameters", null);
+    // }
 } catch (Exception $ex) {
     $response = new Response(4, true, "Client error" . "Not enough parameters", null);
 }

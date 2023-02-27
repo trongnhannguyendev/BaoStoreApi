@@ -121,7 +121,7 @@ class UserServices
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "INSERT INTO TBLUSERS SET USERID = NULL, EMAIL =?, PASSWORD =?, FULLNAME = NULL, PHONENUMBER = NULL, ROLE = 1, STATE = 1";
+            $query = "INSERT INTO TBLUSERS SET USERID = NULL, EMAIL =?, PASSWORD =?, FULLNAME = ?, PHONENUMBER = ?, ROLE = 1, STATE = 1";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->email);
             $stmt->bindParam(2, $data->password);
