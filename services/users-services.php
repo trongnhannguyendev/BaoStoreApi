@@ -125,6 +125,8 @@ class UserServices
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->email);
             $stmt->bindParam(2, $data->password);
+            $stmt->bindParam(3, $data->fullname);
+            $stmt->bindParam(4, $data->phonenumber);
             $this->connect->beginTransaction();
 
             if ($stmt->execute()) {
