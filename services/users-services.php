@@ -253,12 +253,9 @@ class UserServices
                 EMAIL = ?
                 WHERE USERID = ?";
             $stmt = $this->connect->prepare($query);
-
             $stmt->bindParam(1, $data->email);
             $stmt->bindParam(2, $data->userid);
-
             $this->connect->beginTransaction();
-
             if ($stmt->execute()) {
                 $this->connect->commit();
                 $response->setMessage("update email success");
@@ -283,16 +280,12 @@ class UserServices
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "UPDATE TBLACCOUNT SET
+            $query = "UPDATE TBLUSERS SET
                 STATE = 0
                 WHERE EMAIL = ?";
             $stmt = $this->connect->prepare($query);
-
-
             $stmt->bindParam(1, $email);
-
             $this->connect->beginTransaction();
-
             if ($stmt->execute()) {
                 $this->connect->commit();
                 $response->setMessage("Active user success");
@@ -317,16 +310,12 @@ class UserServices
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "UPDATE TBLACCOUNT SET
+            $query = "UPDATE TBLUSERS SET
                 STATE = 1
                 WHERE EMAIL = ?";
             $stmt = $this->connect->prepare($query);
-
-
             $stmt->bindParam(1, $email);
-
             $this->connect->beginTransaction();
-
             if ($stmt->execute()) {
                 $this->connect->commit();
                 $response->setMessage("Deactive user success");
