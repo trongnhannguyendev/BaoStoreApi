@@ -3,6 +3,7 @@ include_once '../configs/dbconfig.php';
 include_once '../models/books.php';
 include_once '../models/respone.php';
 include_once '../models/categories.php';
+include_once '../models/images.php';
 class BookServices
 {
     public $connect;
@@ -37,19 +38,57 @@ class BookServices
         }
         return $response;
     }
+    // public function getImagesByBookID($bookID)
+    // {
+    //     $response2 = Response::getDefaultInstance();
+    //     try {
+    //         $query = "SELECT IMAGEID, BOOKID, URL FROM TBLIMAGES WHERE BOOKID = ?";
+    //         $stmt = $this->connect->prepare($query);
+    //         $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    //         $listImages = [];
+    //         while ($row = $stmt->fetch()) {
+    //             extract($row);
+    //             $image = new Images($IMAGEID, $BOOKID, $URL, $ISDEFAULT);
+    //             array_push($listImages, $image);
+    //         }
+    //         $response2->setMessage("get all books success");
+    //         $response2->setError(false);
+    //         $response2->setResponeCode(1);
+    //         $response2->setData($listImages);
+    //     } catch (Exception $e) {
+    //         $response2->setMessage($e->getMessage());
+    //         $response2->setError(true);
+    //         $response->setResponeCode(0);
+    //     }
+    //     return $response2;
+    // }
 
-
-    public function getBookDetail($bookId)
+    public function getBookDetail($bookID)
     {
         $response = Response::getDefaultInstance();
+
         try {
-            $query = "";
+            $query = "SELECT BOOKID, TITLE, PRICE, QUANTITY,CATEGORYID, AUTHORID, PUBLISHERID,
+ FROM TBLBOOKS WHERE BOOKID = ?";
             $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $bookID);
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $stmt->execute();
             $listBook = [];
-            $listImage = [];
-            while ($row = $stmt->fetch()) {
+            if ($stmt->rowCount() > 0) {
+                $query2 = "SELECT URL FROM TBLIMAGES WHERE BOOKID = ?";
+                $stmt2 = $this->connect->prepare($query2);
+                $stmt2->bindParam(1, $bookID);
+                $stmt2->setFetchMode(PDO::FETCH_ASSOC);
+                $stmt2->execute();
+                $row = $stmt->fetch();
+                $listImages = [];
+                while ($row = $stmt2->fetch()) {
+                    extract($row);
+                    $image = new Images($URL);
+                    array_push($listImages, $image);
+                }
+                // $listImages = array_pop($URL);
                 extract($row);
                 $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $URL);
                 array_push($listBook, $books);
@@ -94,44 +133,61 @@ class BookServices
         return $response;
     }
 
-    // fix
+
     public function getBooksBySearchKey($searchKey)
     {
-        // $response = Response::getDefaultInstance();
-        // try {
-        //     $query = "SELECT TBLBS.BOOKID, TITLE, PRICE, QUANTITY,CATEGORYID, AUTHORID, PUBLISHERID, URL,ISDEFAULT FROM 
-        //         TBLBOOKS TBLBS INNER JOIN TBLIMAGES TBLIMG ON TBLBS.BOOKID = TBLIMG.BOOKID HAVING ISDEFAULT = 1 AND TITLE LIKE "."'"."?'".'%"''.'"';
-        //     error_log($searchKey);
-        //     $stmt = $this->connect->prepare($query);
-        //     $stmt->bindParam(1, $searchKey);
-        //     error_log(json_encode($stmt));
-        //     $stmt->setFetchMode(PDO::FETCH_OBJ);
-        //     $stmt->execute();
-        //     $listBooks = [];
-        //     while ($row = $stmt->fetch()) {
-        //         extract($row);
-        //         $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $URL);
-        //         array_push($listBooks, $books);
-        //     }
-        //     $response->setMessage("get books by search keys success");
-        //     $response->setError(false);
-        //     $response->setResponeCode(1);
-        //     $response->setData($listBooks);
-        // } catch (Exception $e) {
-        //     $response->setMessage($e->getMessage());
-        //     $response->setError(true);
-        //     $response->setResponeCode(0);
-        // }
-        // return $response;
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "SELECT TBLBS.BOOKID, TITLE, PRICE, QUANTITY,CATEGORYID, AUTHORID, PUBLISHERID, URL,ISDEFAULT FROM 
+                TBLBOOKS TBLBS INNER JOIN TBLIMAGES TBLIMG ON TBLBS.BOOKID = TBLIMG.BOOKID HAVING ISDEFAULT = 1 AND TITLE LIKE ?";
+            $searchKey = '%' . $searchKey . '%';
+            $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $searchKey);
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $stmt->execute();
+            $listBooks = [];
+            while ($row = $stmt->fetch()) {
+                extract($row);
+                $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $URL);
+                array_push($listBooks, $books);
+            }
+            $response->setMessage("get books by search keys success");
+            $response->setError(false);
+            $response->setResponeCode(1);
+            $response->setData($listBooks);
+        } catch (Exception $e) {
+            $response->setMessage($e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(0);
+        }
+        return $response;
     }
 
     public function getBooksByAuthor($authorID)
     {
         $response = Response::getDefaultInstance();
         try {
-            //code...
+            $query = "SELECT TBLBS.BOOKID, TITLE, PRICE, QUANTITY,CATEGORYID, AUTHORID, PUBLISHERID, URL,
+            ISDEFAULT FROM TBLBOOKS TBLBS INNER JOIN TBLIMAGES TBLIMG ON TBLBS.BOOKID = TBLIMG.BOOKID HAVING ISDEFAULT = 1 AND AUTHORID = ?";
+            $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $authorID);
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $stmt->execute();
+            $listBooks = [];
+            while ($row = $stmt->fetch()) {
+                extract($row);
+                $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $URL);
+                array_push($listBooks, $books);
+            }
+            $response->setMessage("get books by category success");
+            $response->setError(false);
+            $response->setResponeCode(1);
+            $response->setData($listBooks);
         } catch (Exception $e) {
-            //throw $th;
+            $response->setMessage($e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(0);
         }
+        return $response;
     }
 }

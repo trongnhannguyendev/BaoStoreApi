@@ -20,4 +20,8 @@ class BookController
     {
         return $this->services->getBooksBySearchKey($searchKey);
     }
+    public function getBookDetail($bookID)
+    {
+        return $this->services->getBookDetail($bookID);
+    }
 }
