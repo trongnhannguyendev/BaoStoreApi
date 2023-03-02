@@ -156,7 +156,7 @@ class UserServices
             $query = "UPDATE  TBLUSERS SET  FULLNAME = ? WHERE EMAIL = ?";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->fullname);
-            $stmt->bindParam(4, $data->email);
+            $stmt->bindParam(2, $data->email);
 
             $this->connect->beginTransaction();
 
@@ -187,7 +187,7 @@ class UserServices
             $query = "UPDATE  TBLUSERS SET  PHONENUMBER = ? WHERE EMAIL = ?";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->phonenumber);
-            $stmt->bindParam(4, $data->email);
+            $stmt->bindParam(2, $data->email);
 
             $this->connect->beginTransaction();
 
@@ -222,7 +222,6 @@ class UserServices
 
             $stmt->bindParam(1, $data->password);
             $stmt->bindParam(2, $data->email);
-
             $this->connect->beginTransaction();
 
             if ($stmt->execute()) {

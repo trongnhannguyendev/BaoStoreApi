@@ -15,7 +15,8 @@ class CartsServices
         try {
             $query = " SELECT USERID, TBLCS.BOOKID, TBLCS.QUANTITY,TITLE, PRICE, URL,ISDEFAULT FROM TBLCARTS TBLCS
                     INNER JOIN TBLBOOKS TBLBS ON TBLCS.BOOKID = TBLBS.BOOKID
-                    INNER JOIN TBLIMAGES TBLIMG ON TBLBS.BOOKID = TBLIMG.BOOKID HAVING ISDEFAULT = 1 AND USERID = ?";
+                    INNER JOIN TBLIMAGES TBLIMG ON TBLBS.BOOKID = TBLIMG.BOOKID 
+                    HAVING ISDEFAULT = 1 AND USERID = ?";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $userID);
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -62,6 +63,128 @@ class CartsServices
         } catch (Exception $e) {
 
             $response->setMessage("Already have that book in your cart " . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(5);
+        }
+        return $response;
+    }
+
+    public function getAddQuantity($data)
+    {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "UPDATE TBLCARTS SET  QUANTITY = QUANTITY + 1  WHERE  USERID = ? AND BOOKID = ?";
+            $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $data->userID);
+            $stmt->bindParam(2, $data->bookID);
+
+            $this->connect->beginTransaction();
+
+            if ($stmt->execute()) {
+                $this->connect->commit();
+                $response->setMessage("Add quantity success");
+                $response->setError(false);
+                $response->setResponeCode(1);
+            } else {
+                $this->connect->rollBack();
+                $response->setMessage("Add quantity failed");
+                $response->setError(true);
+                $response->setResponeCode(0);
+            }
+        } catch (Exception $e) {
+
+            $response->setMessage("update failed " . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(5);
+        }
+        return $response;
+    }
+
+    public function getMinusQuantity($data)
+    {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "UPDATE TBLCARTS SET  QUANTITY = QUANTITY - 1  WHERE  USERID = ? AND BOOKID = ?";
+            $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $data->userID);
+            $stmt->bindParam(2, $data->bookID);
+
+            $this->connect->beginTransaction();
+
+            if ($stmt->execute()) {
+                $this->connect->commit();
+                $response->setMessage("Minus quantity success");
+                $response->setError(false);
+                $response->setResponeCode(1);
+            } else {
+                $this->connect->rollBack();
+                $response->setMessage("Minus quantity failed");
+                $response->setError(true);
+                $response->setResponeCode(0);
+            }
+        } catch (Exception $e) {
+
+            $response->setMessage("update failed " . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(5);
+        }
+        return $response;
+    }
+    public function getDeleteCart($data)
+    {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "DELETE FROM TBLCARTS WHERE  USERID = ? AND BOOKID = ?";
+            $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $data->userID);
+            $stmt->bindParam(2, $data->bookID);
+
+            $this->connect->beginTransaction();
+
+            if ($stmt->execute()) {
+                $this->connect->commit();
+                $response->setMessage("Minus quantity success");
+                $response->setError(false);
+                $response->setResponeCode(1);
+            } else {
+                $this->connect->rollBack();
+                $response->setMessage("Minus quantity failed");
+                $response->setError(true);
+                $response->setResponeCode(0);
+            }
+        } catch (Exception $e) {
+
+            $response->setMessage("update failed " . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(5);
+        }
+        return $response;
+    }
+    public function getDeleteCartIfQuantity0($data)
+    {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "DELETE FROM TBLCARTS WHERE  USERID = ? AND BOOKID = ? AND QUANTITY = 0";
+            $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $data->userID);
+            $stmt->bindParam(2, $data->bookID);
+
+            $this->connect->beginTransaction();
+
+            if ($stmt->execute()) {
+                $this->connect->commit();
+                $response->setMessage("Delete quantity success");
+                $response->setError(false);
+                $response->setResponeCode(1);
+            } else {
+                $this->connect->rollBack();
+                $response->setMessage("Delete quantity failed");
+                $response->setError(true);
+                $response->setResponeCode(0);
+            }
+        } catch (Exception $e) {
+
+            $response->setMessage("Delete failed " . $e->getMessage());
             $response->setError(true);
             $response->setResponeCode(5);
         }
