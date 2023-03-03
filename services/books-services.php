@@ -77,7 +77,7 @@ class BookServices
             $listBook = [];
             if ($stmt->rowCount() > 0) {
                 extract($row);
-                $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $URL);
+                $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $URL = null);
                 array_push($listBook, $books);
             }
             $response->setMessage("get detail book success");
