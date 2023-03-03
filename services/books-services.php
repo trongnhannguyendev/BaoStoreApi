@@ -38,30 +38,30 @@ class BookServices
         }
         return $response;
     }
-    // public function getImagesByBookID($bookID)
-    // {
-    //     $response2 = Response::getDefaultInstance();
-    //     try {
-    //         $query = "SELECT IMAGEID, BOOKID, URL FROM TBLIMAGES WHERE BOOKID = ?";
-    //         $stmt = $this->connect->prepare($query);
-    //         $stmt->setFetchMode(PDO::FETCH_ASSOC);
-    //         $listImages = [];
-    //         while ($row = $stmt->fetch()) {
-    //             extract($row);
-    //             $image = new Images($IMAGEID, $BOOKID, $URL, $ISDEFAULT);
-    //             array_push($listImages, $image);
-    //         }
-    //         $response2->setMessage("get all books success");
-    //         $response2->setError(false);
-    //         $response2->setResponeCode(1);
-    //         $response2->setData($listImages);
-    //     } catch (Exception $e) {
-    //         $response2->setMessage($e->getMessage());
-    //         $response2->setError(true);
-    //         $response->setResponeCode(0);
-    //     }
-    //     return $response2;
-    // }
+    public function getImagesByBookID($bookID)
+    {
+        $response2 = Response::getDefaultInstance();
+        try {
+            $query = "SELECT IMAGEID, BOOKID, URL FROM TBLIMAGES WHERE BOOKID = ?";
+            $stmt = $this->connect->prepare($query);
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $listImages = [];
+            while ($row = $stmt->fetch()) {
+                extract($row);
+                $image = new Images($IMAGEID, $BOOKID, $URL, $ISDEFAULT);
+                array_push($listImages, $image);
+            }
+            $response2->setMessage("get all books success");
+            $response2->setError(false);
+            $response2->setResponeCode(1);
+            $response2->setData($listImages);
+        } catch (Exception $e) {
+            $response2->setMessage($e->getMessage());
+            $response2->setError(true);
+            $response->setResponeCode(0);
+        }
+        return $response2;
+    }
 
     public function getBookDetail($bookID)
     {
@@ -69,31 +69,18 @@ class BookServices
 
         try {
             $query = "SELECT BOOKID, TITLE, PRICE, QUANTITY,CATEGORYID, AUTHORID, PUBLISHERID,
- FROM TBLBOOKS WHERE BOOKID = ?";
+                FROM TBLBOOKS WHERE BOOKID = ? ";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $bookID);
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $stmt->execute();
             $listBook = [];
             if ($stmt->rowCount() > 0) {
-                $query2 = "SELECT URL FROM TBLIMAGES WHERE BOOKID = ?";
-                $stmt2 = $this->connect->prepare($query2);
-                $stmt2->bindParam(1, $bookID);
-                $stmt2->setFetchMode(PDO::FETCH_ASSOC);
-                $stmt2->execute();
-                $row = $stmt->fetch();
-                $listImages = [];
-                while ($row = $stmt2->fetch()) {
-                    extract($row);
-                    $image = new Images($URL);
-                    array_push($listImages, $image);
-                }
-                // $listImages = array_pop($URL);
                 extract($row);
                 $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $URL);
                 array_push($listBook, $books);
             }
-            $response->setMessage("get all books success");
+            $response->setMessage("get detail book success");
             $response->setError(false);
             $response->setResponeCode(1);
             $response->setData($listBook);
@@ -151,7 +138,7 @@ class BookServices
                 $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $URL);
                 array_push($listBooks, $books);
             }
-            $response->setMessage("get books by search keys success");
+            $response->setMessage("get books by search key success");
             $response->setError(false);
             $response->setResponeCode(1);
             $response->setData($listBooks);
