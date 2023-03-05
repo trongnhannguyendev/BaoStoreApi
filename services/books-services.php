@@ -179,15 +179,15 @@ class BookServices
         return $response;
     }
 
-    public function setDeactiveBook()
+    public function setDeactiveBook($bookid)
     {
     }
 
-    public function setActiveBook()
+    public function setActiveBook($bookid)
     {
     }
 
-    public function insertBook()
+    public function insertBook($data)
     {
     }
 

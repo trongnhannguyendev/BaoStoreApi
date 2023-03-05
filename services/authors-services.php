@@ -15,7 +15,7 @@ class AuthorsService
     public function insertAuthor($data)
     {
     }
-    public function updateAuthor($data)
+    public function updateAuthor($authorid)
     {
     }
 }

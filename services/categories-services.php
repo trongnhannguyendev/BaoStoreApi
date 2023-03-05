@@ -35,7 +35,7 @@ class CategoriesService
         }
         return $response;
     }
-    public function getInsertCategory()
+    public function getInsertCategory($data)
     {
     }
 }
