@@ -37,5 +37,34 @@ class PublishersService
     }
     public function insertPublisher($data)
     {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "INSERT INTO TBLPUBLISHERS SET PUBLISHERID = NULL, PUBLISHERNAME ";
+            $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $data->publishername);
+
+            $this->connect->beginTransaction();
+
+            if ($stmt->execute()) {
+                $this->connect->commit();
+                $response->setMessage("Insert publisher success");
+                $response->setError(false);
+                $response->setResponeCode(1);
+            } else {
+                $this->connect->rollBack();
+                $response->setMessage("Insert publisher failed");
+                $response->setError(true);
+                $response->setResponeCode(0);
+            }
+        } catch (Exception $e) {
+
+            $response->setMessage("Have issue with DB" . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(5);
+        }
+        return $response;
+    }
+    public function updatePublisher($data)
+    {
     }
 }
