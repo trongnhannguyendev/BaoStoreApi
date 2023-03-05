@@ -9,8 +9,8 @@ class AddressController
         $this->services = new AddressServices();
     }
 
-    public function getAllAddressesByUserID($userID)
+    public function getAllAddressesByUserID($userid)
     {
-        return $this->services->getAllAddressesByUserID($userID);
+        return $this->services->getAllAddressesByUserID($userid);
     }
 }

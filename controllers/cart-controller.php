@@ -8,9 +8,9 @@ class CartController
     {
         $this->services = new CartsServices();
     }
-    public function getAllCartsByUserID($userID)
+    public function getAllCartsByUserID($userid)
     {
-        return $this->services->getAllCartsByUserID($userID);
+        return $this->services->getAllCartsByUserID($userid);
     }
     public function insertCart($data)
     {

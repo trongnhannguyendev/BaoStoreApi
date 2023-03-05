@@ -12,9 +12,9 @@ $response = null;
 
 try {
     if (
-        isset($data->userID)
+        isset($data->userid)
     ) {
-        $response = (new AddressController())->getAllAddressesByUserID($data->userID);
+        $response = (new AddressController())->getAllAddressesByUserID($data->userid);
     } else {
         $response = new Response(3, true, "Can't load addresses by user you choose", null);
     }

@@ -1,69 +1,69 @@
 <?php
     class Authors{
-        public $authorID;
-        public $authorName;
-        public $DOB;
+        public $authorid;
+        public $authorname;
+        public $dob;
         public $description;
 
-        function __construct($authorID, $authorName, $DOB, $description){
-            $this->authorID = $authorID;
-            $this->authorName = $authorName;
-            $this->DOB = $DOB;
+        function __construct($authorid, $authorname, $dob, $description){
+            $this->authorid = $authorid;
+            $this->authorname = $authorname;
+            $this->dob = $dob;
             $this->description = $description;
         }
         
         
 
         /**
-         * Get the value of authorID
+         * Get the value of authorid
          */
         public function getAuthorID()
         {
-                return $this->authorID;
+                return $this->authorid;
         }
 
         /**
-         * Set the value of authorID
+         * Set the value of authorid
          */
-        public function setAuthorID($authorID): self
+        public function setAuthorID($authorid): self
         {
-                $this->authorID = $authorID;
+                $this->authorid = $authorid;
 
                 return $this;
         }
 
         /**
-         * Get the value of authorName
+         * Get the value of authorname
          */
         public function getAuthorName()
         {
-                return $this->authorName;
+                return $this->authorname;
         }
 
         /**
-         * Set the value of authorName
+         * Set the value of authorname
          */
-        public function setAuthorName($authorName): self
+        public function setAuthorName($authorname): self
         {
-                $this->authorName = $authorName;
+                $this->authorname = $authorname;
 
                 return $this;
         }
 
         /**
-         * Get the value of DOB
+         * Get the value of dob
          */
-        public function getDOB()
+        public function getdob()
         {
-                return $this->DOB;
+                return $this->dob;
         }
 
         /**
-         * Set the value of DOB
+         * Set the value of dob
          */
-        public function setDOB($DOB): self
+        public function setdob($dob): self
         {
-                $this->DOB = $DOB;
+                $this->dob = $dob;
 
                 return $this;
         }

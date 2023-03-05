@@ -12,11 +12,11 @@ $response = null;
 
 try {
     if (
-        isset($data->categoryID)
+        isset($data->categoryid)
     ) {
-        $response = (new BookController())->getBooksByCategory($data->categoryID);
+        $response = (new BookController())->getBooksByAuthorID($data->categoryid);
     } else {
-        $response = new Response(3, true, "Can't load books by category you choose", null);
+        $response = new Response(3, true, "Can't load books by author you choose", null);
     }
 } catch (Exception $ex) {
     $response = new Response(4, true, "Server down", null);

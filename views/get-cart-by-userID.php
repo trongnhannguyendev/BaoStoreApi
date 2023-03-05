@@ -12,9 +12,9 @@ $response = null;
 
 try {
     if (
-        isset($data->userID)
+        isset($data->userid)
     ) {
-        $response = (new CartController())->getAllCartsByUserID($data->userID);
+        $response = (new CartController())->getAllCartsByUserID($data->userid);
     } else {
         $response = new Response(3, true, "Client error" . " Not enough parameters", null);
     }

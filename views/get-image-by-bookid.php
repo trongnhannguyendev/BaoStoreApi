@@ -14,7 +14,7 @@ try {
     if (
         isset($data->bookid)
     ) {
-        $response = (new BookController())->getBookDetail($data->bookid);
+        $response = (new BookController())->getImagesByBookID($data->bookid);
     } else {
         $response = new Response(3, true, "Client error" . "Not enough parameters", null);
     }

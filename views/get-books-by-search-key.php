@@ -12,12 +12,11 @@ $response = null;
 
 try {
     if (
-        isset($data->searchKey)
+        isset($data->searchkey)
     ) {
-        $response = (new BookController())->getBooksBySearchKey($data->searchKey);
-        
+        $response = (new BookController())->getBooksBySearchKey($data->searchkey);
     } else {
-        $response = new Response(3, true, "Can't load books by searchKey", null);
+        $response = new Response(3, true, "Can't load books by searchkey", null);
     }
 } catch (Exception $ex) {
     $response = new Response(4, true, "Server down", null);

@@ -12,9 +12,9 @@ $response = null;
 
 try {
     if (
-        isset($data->userID) && isset($data->bookID) && isset($data->quantity)
+        isset($data->userid) && isset($data->bookid) && isset($data->quantity)
     ) {
-        $response = (new CartController())->getAllCartsByUserID($data->userID, $data->bookID, $data->quantity);
+        $response = (new CartController())->getAllCartsByUserID($data->userid, $data->bookid, $data->quantity);
     } else {
         $response = new Response(3, true, "Can't load carts by user you login", null);
     }

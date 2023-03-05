@@ -12,16 +12,24 @@ class BookController
     {
         return $this->services->getAllBooks();
     }
-    public function getBooksByCategory($categoryID)
+    public function getImagesByBookID($bookid)
     {
-        return $this->services->getBooksByCategory($categoryID);
+        return $this->services->getImagesByBookID($bookid);
     }
-    public function getBooksBySearchKey($searchKey)
+    public function getBookDetail($bookid)
     {
-        return $this->services->getBooksBySearchKey($searchKey);
+        return $this->services->getBookDetail($bookid);
     }
-    public function getBookDetail($bookID)
+    public function getBooksByCategory($categoryid)
     {
-        return $this->services->getBookDetail($bookID);
+        return $this->services->getBooksByCategory($categoryid);
+    }
+    public function getBooksBySearchKey($searchkey)
+    {
+        return $this->services->getBooksBySearchKey($searchkey);
+    }
+    public function getBooksByAuthorID($authorid)
+    {
+        return $this->services->getBooksByAuthorID($authorid);
     }
 }

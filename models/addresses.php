@@ -2,7 +2,7 @@
 class Addresses
 {
         public $addressid;
-        public $userID;
+        public $userid;
         public $location;
         public $ward;
         public $district;
@@ -11,10 +11,10 @@ class Addresses
         public $isdefault;
 
 
-        public function __construct($addressid, $userID, $location, $ward, $district, $city, $addressname, $isdefault)
+        public function __construct($addressid, $userid, $location, $ward, $district, $city, $addressname, $isdefault)
         {
                 $this->addressid = $addressid;
-                $this->userID = $userID;
+                $this->userid = $userid;
                 $this->location = $location;
                 $this->ward = $ward;
                 $this->district = $district;
@@ -42,19 +42,19 @@ class Addresses
         }
 
         /**
-         * Get the value of userID
+         * Get the value of userid
          */
         public function getUserID()
         {
-                return $this->userID;
+                return $this->userid;
         }
 
         /**
-         * Set the value of userID
+         * Set the value of userid
          */
-        public function setUserID($userID): self
+        public function setUserID($userid): self
         {
-                $this->userID = $userID;
+                $this->userid = $userid;
 
                 return $this;
         }

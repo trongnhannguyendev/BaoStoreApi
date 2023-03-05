@@ -1,47 +1,49 @@
 <?php
-    class Categories{
-        public $categoryID;
-        public $categoryName;
+class Categories
+{
+        public $categoryid;
+        public $categoryname;
 
-        public function __construct($categoryID, $categoryName){
-            $this->categoryID = $categoryID;
-            $this->categoryName = $categoryName;
+        public function __construct($categoryid, $categoryname)
+        {
+                $this->categoryid = $categoryid;
+                $this->categoryname = $categoryname;
         }
-        
+
 
         /**
-         * Get the value of categoryID
+         * Get the value of categoryid
          */
         public function getCategoryID()
         {
-                return $this->categoryID;
+                return $this->categoryid;
         }
 
         /**
-         * Set the value of categoryID
+         * Set the value of categoryid
          */
-        public function setCategoryID($categoryID): self
+        public function setCategoryID($categoryid): self
         {
-                $this->categoryID = $categoryID;
+                $this->categoryid = $categoryid;
 
                 return $this;
         }
 
         /**
-         * Get the value of categoryName
+         * Get the value of categoryname
          */
         public function getCategoryName()
         {
-                return $this->categoryName;
+                return $this->categoryname;
         }
 
         /**
-         * Set the value of categoryName
+         * Set the value of categoryname
          */
-        public function setCategoryName($categoryName): self
+        public function setCategoryName($categoryname): self
         {
-                $this->categoryName = $categoryName;
+                $this->categoryname = $categoryname;
 
                 return $this;
         }
-    }
+}

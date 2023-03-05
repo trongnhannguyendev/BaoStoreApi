@@ -1,42 +1,43 @@
 <?php
-    
-    class User{
-        public $userID;
+
+class User
+{
+        public $userid;
         public $email;
         public $password;
-        public $fullName;
-        public $phoneNumber;
+        public $fullname;
+        public $phonenumber;
         public $role;
         public $state;
 
-        function __construct($userID,$email,$password,$fullName,$phoneNumber,$role,$state)
+        function __construct($userid, $email, $password, $fullname, $phonenumber, $role, $state)
         {
-            $this -> userID = $userID;
-            $this -> email = $email;
-            $this -> password = $password;
-            $this -> fullName = $fullName;
-            $this -> phoneNumber = $phoneNumber;
-            $this -> role = $role;
-            $this -> state = $state;
+                $this->userid = $userid;
+                $this->email = $email;
+                $this->password = $password;
+                $this->fullname = $fullname;
+                $this->phonenumber = $phonenumber;
+                $this->role = $role;
+                $this->state = $state;
         }
 
-       
-        
+
+
 
         /**
-         * Get the value of userID
+         * Get the value of userid
          */
         public function getUserID()
         {
-                return $this->userID;
+                return $this->userid;
         }
 
         /**
-         * Set the value of userID
+         * Set the value of userid
          */
-        public function setUserID($userID): self
+        public function setUserID($userid): self
         {
-                $this->userID = $userID;
+                $this->userid = $userid;
 
                 return $this;
         }
@@ -78,37 +79,37 @@
         }
 
         /**
-         * Get the value of fullName
+         * Get the value of fullname
          */
         public function getFullName()
         {
-                return $this->fullName;
+                return $this->fullname;
         }
 
         /**
-         * Set the value of fullName
+         * Set the value of fullname
          */
-        public function setFullName($fullName): self
+        public function setFullName($fullname): self
         {
-                $this->fullName = $fullName;
+                $this->fullname = $fullname;
 
                 return $this;
         }
 
         /**
-         * Get the value of phoneNumber
+         * Get the value of phonenumber
          */
         public function getPhoneNumber()
         {
-                return $this->phoneNumber;
+                return $this->phonenumber;
         }
 
         /**
-         * Set the value of phoneNumber
+         * Set the value of phonenumber
          */
-        public function setPhoneNumber($phoneNumber): self
+        public function setPhoneNumber($phonenumber): self
         {
-                $this->phoneNumber = $phoneNumber;
+                $this->phonenumber = $phonenumber;
 
                 return $this;
         }
@@ -148,4 +149,4 @@
 
                 return $this;
         }
-    }
+}

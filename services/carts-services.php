@@ -9,7 +9,7 @@ class CartsServices
     {
         $this->connect = (new DBConfig())->getConnect();
     }
-    public function getAllCartsByUserID($userID)
+    public function getAllCartsByUserID($userid)
     {
         $response = Response::getDefaultInstance();
         try {
@@ -18,7 +18,7 @@ class CartsServices
                     INNER JOIN TBLIMAGES TBLIMG ON TBLBS.BOOKID = TBLIMG.BOOKID 
                     HAVING ISDEFAULT = 1 AND USERID = ?";
             $stmt = $this->connect->prepare($query);
-            $stmt->bindParam(1, $userID);
+            $stmt->bindParam(1, $userid);
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $stmt->execute();
             $listCarts = [];

@@ -2,48 +2,48 @@
 
 class Publishers
 {
-    public $publisherID;
-    public $publisherName;
+    public $publisherid;
+    public $publishername;
 
 
-    function __construct($publisherID, $publisherName)
+    function __construct($publisherid, $publishername)
     {
-        $this->publisherID = $publisherID;
-        $this->publisherName = $publisherName;
+        $this->publisherid = $publisherid;
+        $this->publishername = $publishername;
     }
 
     /**
-     * Get the value of publisherID
+     * Get the value of publisherid
      */
     public function getPublisherID()
     {
-        return $this->publisherID;
+        return $this->publisherid;
     }
 
     /**
-     * Set the value of publisherID
+     * Set the value of publisherid
      */
-    public function setPublisherID($publisherID): self
+    public function setPublisherID($publisherid): self
     {
-        $this->publisherID = $publisherID;
+        $this->publisherid = $publisherid;
 
         return $this;
     }
 
     /**
-     * Get the value of publisherName
+     * Get the value of publishername
      */
     public function getPublisherName()
     {
-        return $this->publisherName;
+        return $this->publishername;
     }
 
     /**
-     * Set the value of publisherName
+     * Set the value of publishername
      */
-    public function setPublisherName($publisherName): self
+    public function setPublisherName($publishername): self
     {
-        $this->publisherName = $publisherName;
+        $this->publishername = $publishername;
 
         return $this;
     }

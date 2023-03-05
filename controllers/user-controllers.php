@@ -8,19 +8,6 @@ class UserController
     {
         $this->services = new UserServices();
     }
-    // public function postLogin($email, $password)
-    // {
-    //     if($_POST){
-    //         return $this->services->login($email,$password);
-    //     }
-
-    // }
-
-    // public function postSignup($fullname,$email,$password,$phonenumber){
-    //     if($_POST){
-    //         return $this->services->signup($fullname,$email,$password,$phonenumber);
-    //     }
-    // }
     public function getUserByEmail($email)
     {
         return $this->services->getUserByEmail($email);

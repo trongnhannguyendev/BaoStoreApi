@@ -1,18 +1,18 @@
 <?php
 class Carts
 {
-    public $userID;
-    public $bookID;
+    public $userid;
+    public $bookid;
     public $quantity;
     public $title;
     public $price;
     public $url;
     public $isdefault;
 
-    public function __construct($userID, $bookID, $quantity, $title, $price, $url, $isdefault)
+    public function __construct($userid, $bookid, $quantity, $title, $price, $url, $isdefault)
     {
-        $this->userID = $userID;
-        $this->bookID = $bookID;
+        $this->userid = $userid;
+        $this->bookid = $bookid;
         $this->quantity = $quantity;
         $this->title = $title;
         $this->price = $price;
@@ -21,37 +21,37 @@ class Carts
     }
 
     /**
-     * Get the value of userID
+     * Get the value of userid
      */
     public function getUserID()
     {
-        return $this->userID;
+        return $this->userid;
     }
 
     /**
-     * Set the value of userID
+     * Set the value of userid
      */
-    public function setUserID($userID): self
+    public function setUserID($userid): self
     {
-        $this->userID = $userID;
+        $this->userid = $userid;
 
         return $this;
     }
 
     /**
-     * Get the value of bookID
+     * Get the value of bookid
      */
     public function getBookID()
     {
-        return $this->bookID;
+        return $this->bookid;
     }
 
     /**
-     * Set the value of bookID
+     * Set the value of bookid
      */
-    public function setBookID($bookID): self
+    public function setBookID($bookid): self
     {
-        $this->bookID = $bookID;
+        $this->bookid = $bookid;
 
         return $this;
     }

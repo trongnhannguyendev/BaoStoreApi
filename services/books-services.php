@@ -38,12 +38,14 @@ class BookServices
         }
         return $response;
     }
-    public function getImagesByBookID($bookID)
+
+    public function getImagesByBookID($bookid)
     {
-        $response2 = Response::getDefaultInstance();
+        $response = Response::getDefaultInstance();
         try {
             $query = "SELECT IMAGEID, BOOKID, URL FROM TBLIMAGES WHERE BOOKID = ?";
             $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $bookid);
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $listImages = [];
             while ($row = $stmt->fetch()) {
@@ -51,19 +53,19 @@ class BookServices
                 $image = new Images($IMAGEID, $BOOKID, $URL, $ISDEFAULT);
                 array_push($listImages, $image);
             }
-            $response2->setMessage("get all books success");
-            $response2->setError(false);
-            $response2->setResponeCode(1);
-            $response2->setData($listImages);
+            $response->setMessage("get all books success");
+            $response->setError(false);
+            $response->setResponeCode(1);
+            $response->setData($listImages);
         } catch (Exception $e) {
-            $response2->setMessage($e->getMessage());
-            $response2->setError(true);
+            $response->setMessage($e->getMessage());
+            $response->setError(true);
             $response->setResponeCode(0);
         }
-        return $response2;
+        return $response;
     }
 
-    public function getBookDetail($bookID)
+    public function getBookDetail($bookid)
     {
         $response = Response::getDefaultInstance();
 
@@ -71,7 +73,7 @@ class BookServices
             $query = "SELECT BOOKID, TITLE, PRICE, QUANTITY,CATEGORYID, AUTHORID, PUBLISHERID,
                 FROM TBLBOOKS WHERE BOOKID = ? ";
             $stmt = $this->connect->prepare($query);
-            $stmt->bindParam(1, $bookID);
+            $stmt->bindParam(1, $bookid);
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $stmt->execute();
             $listBook = [];
@@ -92,14 +94,14 @@ class BookServices
         return $response;
     }
 
-    public function getBooksByCategory($categoryID)
+    public function getBooksByCategory($categoryid)
     {
         $response = Response::getDefaultInstance();
         try {
             $query = "SELECT TBLBS.BOOKID, TITLE, PRICE, QUANTITY,CATEGORYID, AUTHORID, PUBLISHERID, URL,
             ISDEFAULT FROM TBLBOOKS TBLBS INNER JOIN TBLIMAGES TBLIMG ON TBLBS.BOOKID = TBLIMG.BOOKID HAVING ISDEFAULT = 1 AND CATEGORYID = ?";
             $stmt = $this->connect->prepare($query);
-            $stmt->bindParam(1, $categoryID);
+            $stmt->bindParam(1, $categoryid);
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $stmt->execute();
             $listBooks = [];
@@ -121,15 +123,15 @@ class BookServices
     }
 
 
-    public function getBooksBySearchKey($searchKey)
+    public function getBooksBySearchKey($searchkey)
     {
         $response = Response::getDefaultInstance();
         try {
             $query = "SELECT TBLBS.BOOKID, TITLE, PRICE, QUANTITY,CATEGORYID, AUTHORID, PUBLISHERID, URL,ISDEFAULT FROM 
                 TBLBOOKS TBLBS INNER JOIN TBLIMAGES TBLIMG ON TBLBS.BOOKID = TBLIMG.BOOKID HAVING ISDEFAULT = 1 AND TITLE LIKE ?";
-            $searchKey = '%' . $searchKey . '%';
+            $searchkey = '%' . $searchkey . '%';
             $stmt = $this->connect->prepare($query);
-            $stmt->bindParam(1, $searchKey);
+            $stmt->bindParam(1, $searchkey);
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $stmt->execute();
             $listBooks = [];
@@ -150,14 +152,14 @@ class BookServices
         return $response;
     }
 
-    public function getBooksByAuthor($authorID)
+    public function getBooksByAuthorID($authorid)
     {
         $response = Response::getDefaultInstance();
         try {
             $query = "SELECT TBLBS.BOOKID, TITLE, PRICE, QUANTITY,CATEGORYID, AUTHORID, PUBLISHERID, URL,
             ISDEFAULT FROM TBLBOOKS TBLBS INNER JOIN TBLIMAGES TBLIMG ON TBLBS.BOOKID = TBLIMG.BOOKID HAVING ISDEFAULT = 1 AND AUTHORID = ?";
             $stmt = $this->connect->prepare($query);
-            $stmt->bindParam(1, $authorID);
+            $stmt->bindParam(1, $authorid);
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $stmt->execute();
             $listBooks = [];
