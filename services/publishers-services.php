@@ -3,14 +3,16 @@ include_once '../configs/dbconfig.php';
 include_once '../models/respone.php';
 include_once '../models/publishers.php';
 
-    class PublishersService{
-        public $connect;
-        public function __construct()
-        {
-            $this->connect = (new DBConfig())->getConnect();
-        }
-        public function getAllPublishers(){
-            $response = Response::getDefaultInstance();
+class PublishersService
+{
+    public $connect;
+    public function __construct()
+    {
+        $this->connect = (new DBConfig())->getConnect();
+    }
+    public function getAllPublishers()
+    {
+        $response = Response::getDefaultInstance();
         try {
             $query = "SELECT PUBLISHERID, PUBLISHERNAME FROM TBLPUBLISHERS";
             $stmt = $this->connect->prepare($query);
@@ -19,7 +21,7 @@ include_once '../models/publishers.php';
             $listPublishers = [];
             while ($row = $stmt->fetch()) {
                 extract($row);
-                $publisher = new Publishers($PUBLISHERID,$PUBLISHERNAME);
+                $publisher = new Publishers($PUBLISHERID, $PUBLISHERNAME);
                 array_push($listPublishers, $publisher);
             }
             $response->setMessage("get all publishers success");
@@ -27,11 +29,13 @@ include_once '../models/publishers.php';
             $response->setResponeCode(1);
             $response->setData($listPublishers);
         } catch (Exception $e) {
-            $response->setMessage($e->getMessage());
+            $response->setMessage("Have issue with DB" . $e->getMessage());
             $response->setError(true);
             $response->setResponeCode(0);
         }
         return $response;
     }
-
+    public function insertPublisher($data)
+    {
+    }
 }

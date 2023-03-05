@@ -1,7 +1,6 @@
 <?php
 class Images
 {
-
     public $url;
 
     public function __construct($url)

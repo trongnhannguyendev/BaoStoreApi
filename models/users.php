@@ -21,9 +21,6 @@ class User
                 $this->state = $state;
         }
 
-
-
-
         /**
          * Get the value of userid
          */

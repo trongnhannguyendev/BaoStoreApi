@@ -1,20 +1,22 @@
 <?php
-    class Response{
+class Response
+{
         public $respone_code;
         public $error;
         public $message;
         public $data;
 
-        public function __construct($respone_code, $error, $message, $data){
-            $this->respone_code = $respone_code;
-            $this->error = $error;
-            $this->message = $message;
-            $this->data = $data;
+        public function __construct($respone_code, $error, $message, $data)
+        {
+                $this->respone_code = $respone_code;
+                $this->error = $error;
+                $this->message = $message;
+                $this->data = $data;
         }
         public static function getDefaultInstance()
-    {
-        return new self(null, false, null, null);
-    }
+        {
+                return new self(null, false, null, null);
+        }
 
         /**
          * Get the value of respone_code
@@ -87,4 +89,4 @@
 
                 return $this;
         }
-    }
+}

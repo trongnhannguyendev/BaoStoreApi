@@ -29,7 +29,7 @@ class CategoriesService
             $response->setResponeCode(1);
             $response->setData($listCates);
         } catch (Exception $e) {
-            $response->setMessage($e->getMessage());
+            $response->setMessage("Have issue with DB" . $e->getMessage());
             $response->setError(true);
             $response->setResponeCode(0);
         }

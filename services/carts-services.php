@@ -32,12 +32,13 @@ class CartsServices
             $response->setResponeCode(1);
             $response->setData($listCarts);
         } catch (Exception $e) {
-            $response->setMessage($e->getMessage("get carts by userID fail"));
+            $response->setMessage("Have issue with DB" . $e->getMessage());
             $response->setError(true);
             $response->setResponeCode(0);
         }
         return $response;
     }
+
     public function insertCart($data)
     {
         $response = Response::getDefaultInstance();
@@ -69,6 +70,37 @@ class CartsServices
         return $response;
     }
 
+    public function getRemoveCart($data)
+    {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "DELETE FROM TBLCARTS WHERE  USERID = ? AND BOOKID = ?";
+            $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $data->userid);
+            $stmt->bindParam(2, $data->bookid);
+
+            $this->connect->beginTransaction();
+
+            if ($stmt->execute()) {
+                $this->connect->commit();
+                $response->setMessage("Minus quantity success");
+                $response->setError(false);
+                $response->setResponeCode(1);
+            } else {
+                $this->connect->rollBack();
+                $response->setMessage("Minus quantity failed");
+                $response->setError(true);
+                $response->setResponeCode(0);
+            }
+        } catch (Exception $e) {
+
+            $response->setMessage("Have issue with DB" . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(5);
+        }
+        return $response;
+    }
+
     public function getAddQuantity($data)
     {
         $response = Response::getDefaultInstance();
@@ -93,7 +125,7 @@ class CartsServices
             }
         } catch (Exception $e) {
 
-            $response->setMessage("update failed " . $e->getMessage());
+            $response->setMessage("Have issue with DB" . $e->getMessage());
             $response->setError(true);
             $response->setResponeCode(5);
         }
@@ -124,67 +156,38 @@ class CartsServices
             }
         } catch (Exception $e) {
 
-            $response->setMessage("update failed " . $e->getMessage());
+            $response->setMessage("Have issue with DB" . $e->getMessage());
             $response->setError(true);
             $response->setResponeCode(5);
         }
         return $response;
     }
-    public function getDeleteCart($data)
-    {
-        $response = Response::getDefaultInstance();
-        try {
-            $query = "DELETE FROM TBLCARTS WHERE  USERID = ? AND BOOKID = ?";
-            $stmt = $this->connect->prepare($query);
-            $stmt->bindParam(1, $data->userID);
-            $stmt->bindParam(2, $data->bookID);
 
-            $this->connect->beginTransaction();
-
-            if ($stmt->execute()) {
-                $this->connect->commit();
-                $response->setMessage("Minus quantity success");
-                $response->setError(false);
-                $response->setResponeCode(1);
-            } else {
-                $this->connect->rollBack();
-                $response->setMessage("Minus quantity failed");
-                $response->setError(true);
-                $response->setResponeCode(0);
-            }
-        } catch (Exception $e) {
-
-            $response->setMessage("update failed " . $e->getMessage());
-            $response->setError(true);
-            $response->setResponeCode(5);
-        }
-        return $response;
-    }
-    public function getDeleteCartIfQuantity0($data)
+    public function getRemoveCartIfQuantity0($data)
     {
         $response = Response::getDefaultInstance();
         try {
             $query = "DELETE FROM TBLCARTS WHERE  USERID = ? AND BOOKID = ? AND QUANTITY = 0";
             $stmt = $this->connect->prepare($query);
-            $stmt->bindParam(1, $data->userID);
-            $stmt->bindParam(2, $data->bookID);
+            $stmt->bindParam(1, $data->userid);
+            $stmt->bindParam(2, $data->bookid);
 
             $this->connect->beginTransaction();
 
             if ($stmt->execute()) {
                 $this->connect->commit();
-                $response->setMessage("Delete quantity success");
+                $response->setMessage("Remove quantity success");
                 $response->setError(false);
                 $response->setResponeCode(1);
             } else {
                 $this->connect->rollBack();
-                $response->setMessage("Delete quantity failed");
+                $response->setMessage("Remove quantity failed");
                 $response->setError(true);
                 $response->setResponeCode(0);
             }
         } catch (Exception $e) {
 
-            $response->setMessage("Delete failed " . $e->getMessage());
+            $response->setMessage("Have issue with DB" . $e->getMessage());
             $response->setError(true);
             $response->setResponeCode(5);
         }

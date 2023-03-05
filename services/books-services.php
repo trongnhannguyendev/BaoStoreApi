@@ -32,7 +32,7 @@ class BookServices
             $response->setResponeCode(1);
             $response->setData($listBook);
         } catch (Exception $e) {
-            $response->setMessage($e->getMessage());
+            $response->setMessage("Have issue with DB" . $e->getMessage());
             $response->setError(true);
             $response->setResponeCode(0);
         }
@@ -58,7 +58,7 @@ class BookServices
             $response->setResponeCode(1);
             $response->setData($listImages);
         } catch (Exception $e) {
-            $response->setMessage($e->getMessage());
+            $response->setMessage("Have issue with DB" . $e->getMessage());
             $response->setError(true);
             $response->setResponeCode(0);
         }
@@ -87,7 +87,7 @@ class BookServices
             $response->setResponeCode(1);
             $response->setData($listBook);
         } catch (Exception $e) {
-            $response->setMessage($e->getMessage());
+            $response->setMessage("Have issue with DB" . $e->getMessage());
             $response->setError(true);
             $response->setResponeCode(0);
         }
@@ -115,13 +115,12 @@ class BookServices
             $response->setResponeCode(1);
             $response->setData($listBooks);
         } catch (Exception $e) {
-            $response->setMessage($e->getMessage());
+            $response->setMessage("Have issue with DB" . $e->getMessage());
             $response->setError(true);
             $response->setResponeCode(0);
         }
         return $response;
     }
-
 
     public function getBooksBySearchKey($searchkey)
     {
@@ -145,7 +144,7 @@ class BookServices
             $response->setResponeCode(1);
             $response->setData($listBooks);
         } catch (Exception $e) {
-            $response->setMessage($e->getMessage());
+            $response->setMessage("Have issue with DB" . $e->getMessage());
             $response->setError(true);
             $response->setResponeCode(0);
         }
@@ -173,10 +172,26 @@ class BookServices
             $response->setResponeCode(1);
             $response->setData($listBooks);
         } catch (Exception $e) {
-            $response->setMessage($e->getMessage());
+            $response->setMessage("Have issue with DB" . $e->getMessage());
             $response->setError(true);
             $response->setResponeCode(0);
         }
         return $response;
+    }
+
+    public function setDeactiveBook()
+    {
+    }
+
+    public function setActiveBook()
+    {
+    }
+
+    public function insertBook()
+    {
+    }
+
+    public function updateInformationBook($data)
+    {
     }
 }

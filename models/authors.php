@@ -1,18 +1,18 @@
 <?php
-    class Authors{
+class Authors
+{
         public $authorid;
         public $authorname;
         public $dob;
         public $description;
 
-        function __construct($authorid, $authorname, $dob, $description){
-            $this->authorid = $authorid;
-            $this->authorname = $authorname;
-            $this->dob = $dob;
-            $this->description = $description;
+        function __construct($authorid, $authorname, $dob, $description)
+        {
+                $this->authorid = $authorid;
+                $this->authorname = $authorname;
+                $this->dob = $dob;
+                $this->description = $description;
         }
-        
-        
 
         /**
          * Get the value of authorid
@@ -85,6 +85,4 @@
 
                 return $this;
         }
-    }
-
-       
+}

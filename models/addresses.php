@@ -10,7 +10,6 @@ class Addresses
         public $addressname;
         public $isdefault;
 
-
         public function __construct($addressid, $userid, $location, $ward, $district, $city, $addressname, $isdefault)
         {
                 $this->addressid = $addressid;

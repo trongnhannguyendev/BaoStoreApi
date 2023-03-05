@@ -10,7 +10,6 @@ class Categories
                 $this->categoryname = $categoryname;
         }
 
-
         /**
          * Get the value of categoryid
          */

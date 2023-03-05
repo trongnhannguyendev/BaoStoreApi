@@ -12,7 +12,9 @@ $response = null;
 
 try {
     if (
-        isset($data->userid) && isset($data->bookID) && isset($data->quantity)
+        isset($data->userid)
+        && isset($data->bookID)
+        && isset($data->quantity)
     ) {
         $response = (new CartController())->insertCart($data);
     } else {

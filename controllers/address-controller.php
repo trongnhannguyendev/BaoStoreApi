@@ -13,4 +13,20 @@ class AddressController
     {
         return $this->services->getAllAddressesByUserID($userid);
     }
+    public function insertAdress($data)
+    {
+        return $this->services->insertAdress($data);
+    }
+    public function updateAdress($data)
+    {
+        return $this->services->updateAdress($data);
+    }
+    public function removeAdress($data)
+    {
+        return $this->services->removeAdress($data);
+    }
+    public function getDefaultAddressByUserID($userid)
+    {
+        return $this->services->getDefaultAddressByUserID($userid);
+    }
 }

@@ -62,7 +62,7 @@ class UserServices
             }
         } catch (Exception $e) {
 
-            $response->setMessage("  Insert user failed " . $e->getMessage());
+            $response->setMessage("Have issue with DB" . $e->getMessage());
             $response->setError(true);
             $response->setResponeCode(5);
         }
@@ -73,7 +73,7 @@ class UserServices
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "UPDATE  TBLUSERS SET  FULLNAME = ? WHERE EMAIL = ?";
+            $query = "UPDATE TBLUSERS SET  FULLNAME = ? WHERE EMAIL = ?";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->fullname);
             $stmt->bindParam(2, $data->email);
@@ -82,18 +82,18 @@ class UserServices
 
             if ($stmt->execute()) {
                 $this->connect->commit();
-                $response->setMessage("update fullname success");
+                $response->setMessage("Update fullname success");
                 $response->setError(false);
                 $response->setResponeCode(1);
             } else {
                 $this->connect->rollBack();
-                $response->setMessage("update fullname failed");
+                $response->setMessage("Update fullname failed");
                 $response->setError(true);
                 $response->setResponeCode(0);
             }
         } catch (Exception $e) {
 
-            $response->setMessage("update failed " . $e->getMessage());
+            $response->setMessage("Have issue with DB" . $e->getMessage());
             $response->setError(true);
             $response->setResponeCode(5);
         }
@@ -113,18 +113,18 @@ class UserServices
 
             if ($stmt->execute()) {
                 $this->connect->commit();
-                $response->setMessage("update phone number success");
+                $response->setMessage("Update phone number success");
                 $response->setError(false);
                 $response->setResponeCode(1);
             } else {
                 $this->connect->rollBack();
-                $response->setMessage("update phone number failed");
+                $response->setMessage("Update phone number failed");
                 $response->setError(true);
                 $response->setResponeCode(0);
             }
         } catch (Exception $e) {
 
-            $response->setMessage("update failed " . $e->getMessage());
+            $response->setMessage("Have issue with DB" . $e->getMessage());
             $response->setError(true);
             $response->setResponeCode(5);
         }
@@ -146,18 +146,18 @@ class UserServices
 
             if ($stmt->execute()) {
                 $this->connect->commit();
-                $response->setMessage("update password success");
+                $response->setMessage("Update password success");
                 $response->setError(false);
                 $response->setResponeCode(1);
             } else {
                 $this->connect->rollBack();
-                $response->setMessage("update password failed");
+                $response->setMessage("Update password failed");
                 $response->setError(true);
                 $response->setResponeCode(0);
             }
         } catch (Exception $e) {
 
-            $response->setMessage("update failed " . $e->getMessage());
+            $response->setMessage("Have issue with DB" . $e->getMessage());
             $response->setError(true);
             $response->setResponeCode(5);
         }
@@ -177,25 +177,25 @@ class UserServices
             $this->connect->beginTransaction();
             if ($stmt->execute()) {
                 $this->connect->commit();
-                $response->setMessage("update email success");
+                $response->setMessage("Update email success");
                 $response->setError(false);
                 $response->setResponeCode(1);
             } else {
                 $this->connect->rollBack();
-                $response->setMessage("update email failed");
+                $response->setMessage("Update email failed");
                 $response->setError(true);
                 $response->setResponeCode(0);
             }
         } catch (Exception $e) {
 
-            $response->setMessage("update failed " . $e->getMessage());
+            $response->setMessage("Have issue with DB" . $e->getMessage());
             $response->setError(true);
             $response->setResponeCode(5);
         }
         return $response;
     }
 
-    public function activeUser($email)
+    public function setActiveUser($email)
     {
         $response = Response::getDefaultInstance();
         try {
@@ -218,14 +218,14 @@ class UserServices
             }
         } catch (Exception $e) {
 
-            $response->setMessage("Active failed " . $e->getMessage());
+            $response->setMessage("Have issue with DB" . $e->getMessage());
             $response->setError(true);
             $response->setResponeCode(5);
         }
         return $response;
     }
 
-    public function deactiveUser($email)
+    public function setDeactiveUser($email)
     {
         $response = Response::getDefaultInstance();
         try {
@@ -248,7 +248,7 @@ class UserServices
             }
         } catch (Exception $e) {
 
-            $response->setMessage("Deactive failed " . $e->getMessage());
+            $response->setMessage("Have issue with DB" . $e->getMessage());
             $response->setError(true);
             $response->setResponeCode(5);
         }
