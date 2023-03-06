@@ -1,5 +1,7 @@
 <?php
 include_once '../models/authors.php';
+include_once '../configs/dbconfig.php';
+include_once '../models/respone.php';
 
 class AuthorsService
 {
@@ -34,6 +36,7 @@ class AuthorsService
         }
         return $response;
     }
+
     public function getAuthorsDetail($authorid)
     {
         $response = Response::getDefaultInstance();
@@ -61,15 +64,16 @@ class AuthorsService
         }
         return $response;
     }
+
     public function insertAuthor($data)
     {
         $response = Response::getDefaultInstance();
         try {
             $query = "INSERT INTO TBLAUTHORS SET AUTHORNAME = ?, DOB= ?, DESCRIPTION = ? ";
             $stmt = $this->connect->prepare($query);
-            $stmt->bindParam(1, $authorname);
-            $stmt->bindParam(1, $dob);
-            $stmt->bindParam(1, $description);
+            $stmt->bindParam(1, $data->authorname);
+            $stmt->bindParam(2, $data->dob);
+            $stmt->bindParam(3, $data->description);
             $this->connect->beginTransaction();
 
             if ($stmt->execute()) {
@@ -91,6 +95,7 @@ class AuthorsService
         }
         return $response;
     }
+
     public function updateAuthor($data)
     {
         $response = Response::getDefaultInstance();
@@ -99,8 +104,8 @@ class AuthorsService
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->authorname);
             $stmt->bindParam(2, $data->dob);
-            $stmt->bindParam(1, $data->description);
-            $stmt->bindParam(2, $data->authorid);
+            $stmt->bindParam(3, $data->description);
+            $stmt->bindParam(4, $data->authorid);
             $this->connect->beginTransaction();
             if ($stmt->execute()) {
                 $this->connect->commit();

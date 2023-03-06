@@ -63,13 +63,13 @@ class UserController
         return $this->services->getUpdateEmail($data);
     }
 
-    public function activeUser($data)
+    public function setActiveUser($email)
     {
-        return $this->services->activeUser($data);
+        return $this->services->setActiveUser($email);
     }
 
-    public function deactiveUser($data)
+    public function setDeactiveUser($email)
     {
-        return $this->services->deactiveUser($data);
+        return $this->services->setDeactiveUser($email);
     }
 }
