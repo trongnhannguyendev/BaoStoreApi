@@ -3,7 +3,7 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Content-Type: application/json; charset=UTF-8");
 
-include_once '../controllers/cart-controller.php';
+include_once '../controllers/publisher-controller.php';
 
 
 $data = json_decode(file_get_contents("php://input"));
@@ -12,11 +12,9 @@ $response = null;
 
 try {
     if (
-        isset($data->userid)
-        && isset($data->bookid)
-        && isset($data->quantity)
+        isset($data->publishername)
     ) {
-        $response = (new CartController())->insertCart($data);
+        $response = (new PublisherController())->insertPublisher($data->publishername);
     } else {
         $response = new Response(3, true, "Client error" . "Not enough parameters", null);
     }

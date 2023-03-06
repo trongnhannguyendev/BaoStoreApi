@@ -35,13 +35,13 @@ class PublishersService
         }
         return $response;
     }
-    public function insertPublisher($data)
+    public function insertPublisher($publishername)
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "INSERT INTO TBLPUBLISHERS SET PUBLISHERID = NULL, PUBLISHERNAME ";
+            $query = "INSERT INTO TBLPUBLISHERS SET PUBLISHERID = NULL, PUBLISHERNAME = ? ";
             $stmt = $this->connect->prepare($query);
-            $stmt->bindParam(1, $data->publishername);
+            $stmt->bindParam(1, $publishername);
 
             $this->connect->beginTransaction();
 
@@ -66,5 +66,30 @@ class PublishersService
     }
     public function updatePublisher($data)
     {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "UPDATE TBLPUBLISHERS SET  PUBLISHERNAME = ? WHERE PUBLISHERID = ?";
+            $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $data->publishername);
+            $stmt->bindParam(2, $data->publisherid);
+            $this->connect->beginTransaction();
+            if ($stmt->execute()) {
+                $this->connect->commit();
+                $response->setMessage("Update publisher name success");
+                $response->setError(false);
+                $response->setResponeCode(1);
+            } else {
+                $this->connect->rollBack();
+                $response->setMessage("Update publisher name failed");
+                $response->setError(true);
+                $response->setResponeCode(0);
+            }
+        } catch (Exception $e) {
+
+            $response->setMessage("Have issue with DB" . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(5);
+        }
+        return $response;
     }
 }

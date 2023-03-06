@@ -12,4 +12,12 @@ class PublisherController
     {
         return $this->services->getAllPublishers();
     }
+    public function insertPublisher($publishername)
+    {
+        return $this->services->insertPublisher($publishername);
+    }
+    public function updatePublisher($data)
+    {
+        return $this->services->updatePublisher($data);
+    }
 }
