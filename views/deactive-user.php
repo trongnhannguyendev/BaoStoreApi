@@ -14,7 +14,7 @@ try {
     if (
         isset($data->email)
     ) {
-        $response = (new UserController())->deactiveUser($data->email);
+        $response = (new UserController())->setDeactiveUser($data->email);
     } else {
         $response = new Response(3, true, "Client error" . "Not enough parameters", null);
     }
