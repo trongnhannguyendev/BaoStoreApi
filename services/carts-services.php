@@ -45,8 +45,8 @@ class CartsServices
         try {
             $query = "INSERT INTO TBLCARTS SET USERID =?, BOOKID = ?, QUANTITY = ? ";
             $stmt = $this->connect->prepare($query);
-            $stmt->bindParam(1, $data->userID);
-            $stmt->bindParam(2, $data->bookID);
+            $stmt->bindParam(1, $data->userid);
+            $stmt->bindParam(2, $data->bookid);
             $stmt->bindParam(3, $data->quantity);
             $this->connect->beginTransaction();
 
@@ -107,8 +107,8 @@ class CartsServices
         try {
             $query = "UPDATE TBLCARTS SET  QUANTITY = QUANTITY + 1  WHERE  USERID = ? AND BOOKID = ?";
             $stmt = $this->connect->prepare($query);
-            $stmt->bindParam(1, $data->userID);
-            $stmt->bindParam(2, $data->bookID);
+            $stmt->bindParam(1, $data->userid);
+            $stmt->bindParam(2, $data->bookid);
 
             $this->connect->beginTransaction();
 
@@ -138,8 +138,8 @@ class CartsServices
         try {
             $query = "UPDATE TBLCARTS SET  QUANTITY = QUANTITY - 1  WHERE  USERID = ? AND BOOKID = ?";
             $stmt = $this->connect->prepare($query);
-            $stmt->bindParam(1, $data->userID);
-            $stmt->bindParam(2, $data->bookID);
+            $stmt->bindParam(1, $data->userid);
+            $stmt->bindParam(2, $data->bookid);
 
             $this->connect->beginTransaction();
 

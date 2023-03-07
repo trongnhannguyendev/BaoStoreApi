@@ -14,7 +14,7 @@ try {
     if (
         isset($data->categoryid)
     ) {
-        $response = (new BookController())->getBooksByAuthorID($data->categoryid);
+        $response = (new BookController())->getBooksByCategory($data->categoryid);
     } else {
         $response = new Response(3, true, "Can't load books by author you choose", null);
     }

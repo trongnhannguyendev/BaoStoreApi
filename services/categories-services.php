@@ -35,7 +35,32 @@ class CategoriesService
         }
         return $response;
     }
-    public function getInsertCategory($data)
+    public function getInsertCategory($categoryname)
     {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "INSERT INTO TBLCATEGORIES SET CATEGORYNAME =? ";
+            $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $categoryname);
+            $this->connect->beginTransaction();
+
+            if ($stmt->execute()) {
+                $this->connect->commit();
+                $response->setMessage("Insert cart success");
+                $response->setError(false);
+                $response->setResponeCode(1);
+            } else {
+                $this->connect->rollBack();
+                $response->setMessage("Insert cart fail");
+                $response->setError(true);
+                $response->setResponeCode(0);
+            }
+        } catch (Exception $e) {
+
+            $response->setMessage("Already have that book in your cart " . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(5);
+        }
+        return $response;
     }
 }
