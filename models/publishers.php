@@ -5,7 +5,7 @@ class Publishers
     public $publisherid;
     public $publishername;
 
-    function __construct($publisherid, $publishername)
+    public function __construct($publisherid, $publishername)
     {
         $this->publisherid = $publisherid;
         $this->publishername = $publishername;

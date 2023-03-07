@@ -1,7 +1,8 @@
 <?php
-    class Book{
-       public $bookid ;
-       public $title ;
+class Book
+{
+       public $bookid;
+       public $title;
        public $price;
        public $quantity;
        public $categoryid;
@@ -9,17 +10,18 @@
        public $publisherid;
        public $url;
 
-       function __construct($bookid, $title, $price, $quantity, $categoryid, $authorid, $publisherid, $url) {
-           $this->bookid = $bookid;
-           $this->title = $title;
-           $this->price = $price;
-           $this->quantity = $quantity;
-           $this->categoryid = $categoryid;
-           $this->authorid = $authorid;
-           $this->publisherid = $publisherid;
-           $this->url = $url;
+       public function __construct($bookid, $title, $price, $quantity, $categoryid, $authorid, $publisherid, $url)
+       {
+              $this->bookid = $bookid;
+              $this->title = $title;
+              $this->price = $price;
+              $this->quantity = $quantity;
+              $this->categoryid = $categoryid;
+              $this->authorid = $authorid;
+              $this->publisherid = $publisherid;
+              $this->url = $url;
        }
-       
+
 
        /**
         * Get the value of bookid
@@ -164,4 +166,4 @@
 
               return $this;
        }
-    }
+}

@@ -6,7 +6,7 @@ class Authors
         public $dob;
         public $description;
 
-        function __construct($authorid, $authorname, $dob, $description)
+        public function __construct($authorid, $authorname, $dob, $description)
         {
                 $this->authorid = $authorid;
                 $this->authorname = $authorname;

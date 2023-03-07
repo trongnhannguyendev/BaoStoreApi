@@ -10,7 +10,7 @@ class User
         public $role;
         public $state;
 
-        function __construct($userid, $email, $password, $fullname, $phonenumber, $role, $state)
+        public function __construct($userid, $email, $password, $fullname, $phonenumber, $role, $state)
         {
                 $this->userid = $userid;
                 $this->email = $email;
