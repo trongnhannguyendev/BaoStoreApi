@@ -48,8 +48,8 @@ class AddressServices
             $stmt->bindParam(2, $data->location);
             $stmt->bindParam(3, $data->ward);
             $stmt->bindParam(4, $data->district);
-            $stmt->bindParam(3, $data->city);
-            $stmt->bindParam(4, $data->addressname);
+            $stmt->bindParam(5, $data->city);
+            $stmt->bindParam(6, $data->addressname);
             $this->connect->beginTransaction();
 
             if ($stmt->execute()) {
