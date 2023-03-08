@@ -63,4 +63,33 @@ class CategoriesService
         }
         return $response;
     }
+
+    public function updateCategory($data)
+    {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "UPDATE TBLCATEGORIES SET  CATEGORYNAME = ? WHERE CATEGORYID = ?";
+            $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $data->categoryname);
+            $stmt->bindParam(2, $data->categoryid);
+            $this->connect->beginTransaction();
+            if ($stmt->execute()) {
+                $this->connect->commit();
+                $response->setMessage("Update Category name success");
+                $response->setError(false);
+                $response->setResponeCode(1);
+            } else {
+                $this->connect->rollBack();
+                $response->setMessage("Update Category name failed");
+                $response->setError(true);
+                $response->setResponeCode(0);
+            }
+        } catch (Exception $e) {
+
+            $response->setMessage("Have issue with DB" . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(5);
+        }
+        return $response;
+    }
 }

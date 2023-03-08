@@ -179,19 +179,79 @@ class BookServices
         return $response;
     }
 
-    public function setDeactiveBook($bookid)
-    {
-    }
+    // public function setDeactiveBook($bookid)
+    // {
+    // }
 
-    public function setActiveBook($bookid)
-    {
-    }
+    // public function setActiveBook($bookid)
+    // {
+    // }
 
     public function insertBook($data)
     {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "INSERT INTO TBLBOOKS SET BOOKID = NULL, TITLE = ?, PRICE = ?, QUANTITY =?, CATEGORYID =?, AUTHORID =?, PUBLISHERID =?, URL = NULL";
+            $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $data->title);
+            $stmt->bindParam(2, $data->price);
+            $stmt->bindParam(3, $data->quantity);
+            $stmt->bindParam(4, $data->categoryid);
+            $stmt->bindParam(5, $data->authorid);
+            $stmt->bindParam(6, $data->publisherid);
+            $this->connect->beginTransaction();
+
+            if ($stmt->execute()) {
+                $this->connect->commit();
+                $response->setMessage("Insert publisher success");
+                $response->setError(false);
+                $response->setResponeCode(1);
+            } else {
+                $this->connect->rollBack();
+                $response->setMessage("Insert publisher failed");
+                $response->setError(true);
+                $response->setResponeCode(0);
+            }
+        } catch (Exception $e) {
+
+            $response->setMessage("Have issue with DB" . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(5);
+        }
+        return $response;
     }
 
     public function updateInformationBook($data)
     {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "INSERT INTO TBLBOOKS SET TITLE = ?, PRICE = ?, QUANTITY =?, CATEGORYID =?, AUTHORID =?, PUBLISHERID =?, URL = NULL WHERE BOOKID = ?";
+            $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $data->title);
+            $stmt->bindParam(2, $data->price);
+            $stmt->bindParam(3, $data->quantity);
+            $stmt->bindParam(4, $data->categoryid);
+            $stmt->bindParam(5, $data->authorid);
+            $stmt->bindParam(6, $data->publisherid);
+            $stmt->bindParam(7, $data->bookid);
+            $this->connect->beginTransaction();
+
+            if ($stmt->execute()) {
+                $this->connect->commit();
+                $response->setMessage("Insert publisher success");
+                $response->setError(false);
+                $response->setResponeCode(1);
+            } else {
+                $this->connect->rollBack();
+                $response->setMessage("Insert publisher failed");
+                $response->setError(true);
+                $response->setResponeCode(0);
+            }
+        } catch (Exception $e) {
+
+            $response->setMessage("Have issue with DB" . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(5);
+        }
     }
 }

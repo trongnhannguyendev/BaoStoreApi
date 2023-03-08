@@ -32,4 +32,12 @@ class BookController
     {
         return $this->services->getBooksByAuthorID($authorid);
     }
+    public function insertBook($data)
+    {
+        return $this->services->insertBook($data);
+    }
+    public function updateInformationBook($data)
+    {
+        return $this->services->updateInformationBook($data);
+    }
 }
