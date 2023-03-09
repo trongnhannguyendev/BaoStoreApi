@@ -8,9 +8,10 @@ class Book
        public $categoryid;
        public $authorid;
        public $publisherid;
+       public $releasedate;
        public $url;
 
-       public function __construct($bookid, $title, $price, $quantity, $categoryid, $authorid, $publisherid, $url)
+       public function __construct($bookid, $title, $price, $quantity, $categoryid, $authorid, $publisherid, $releasedate, $url)
        {
               $this->bookid = $bookid;
               $this->title = $title;
@@ -19,9 +20,9 @@ class Book
               $this->categoryid = $categoryid;
               $this->authorid = $authorid;
               $this->publisherid = $publisherid;
+              $this->releasedate = $releasedate;
               $this->url = $url;
        }
-
 
        /**
         * Get the value of bookid
@@ -145,6 +146,24 @@ class Book
        public function setPublisherid($publisherid): self
        {
               $this->publisherid = $publisherid;
+
+              return $this;
+       }
+
+       /**
+        * Get the value of releasedate
+        */
+       public function getReleasedate()
+       {
+              return $this->releasedate;
+       }
+
+       /**
+        * Set the value of releasedate
+        */
+       public function setReleasedate($releasedate): self
+       {
+              $this->releasedate = $releasedate;
 
               return $this;
        }

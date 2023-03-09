@@ -18,6 +18,9 @@ try {
         && isset($data->categoryid)
         && isset($data->authorid)
         && isset($data->publisherid)
+        && isset(
+            $data->relasedate
+        )
     ) {
         $response = (new BookController())->insertBook($data);
     } else {

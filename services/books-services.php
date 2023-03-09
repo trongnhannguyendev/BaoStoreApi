@@ -24,7 +24,7 @@ class BookServices
             $listBook = [];
             while ($row = $stmt->fetch()) {
                 extract($row);
-                $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $URL);
+                $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $RELASEDATE = NULL, $URL);
                 array_push($listBook, $books);
             }
             $response->setMessage("get all books success");
@@ -70,7 +70,7 @@ class BookServices
         $response = Response::getDefaultInstance();
 
         try {
-            $query = "SELECT BOOKID, TITLE, PRICE, QUANTITY,CATEGORYID, AUTHORID, PUBLISHERID,
+            $query = "SELECT BOOKID, TITLE, PRICE, QUANTITY,CATEGORYID, AUTHORID, PUBLISHERID, RELASEDATE
                 FROM TBLBOOKS WHERE BOOKID = ? ";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $bookid);
@@ -79,7 +79,7 @@ class BookServices
             $listBook = [];
             if ($stmt->rowCount() > 0) {
                 extract($row);
-                $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $URL = null);
+                $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $RELASEDATE = NULL, $URL = null);
                 array_push($listBook, $books);
             }
             $response->setMessage("get detail book success");
@@ -107,7 +107,7 @@ class BookServices
             $listBooks = [];
             while ($row = $stmt->fetch()) {
                 extract($row);
-                $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $URL);
+                $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $RELASEDATE = NULL, $URL);
                 array_push($listBooks, $books);
             }
             $response->setMessage("get books by category success");
@@ -136,7 +136,7 @@ class BookServices
             $listBooks = [];
             while ($row = $stmt->fetch()) {
                 extract($row);
-                $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $URL);
+                $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $RELASEDATE = NULL, $URL);
                 array_push($listBooks, $books);
             }
             $response->setMessage("get books by search key success");
@@ -164,7 +164,7 @@ class BookServices
             $listBooks = [];
             while ($row = $stmt->fetch()) {
                 extract($row);
-                $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $URL);
+                $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $RELASEDATE = NULL, $URL);
                 array_push($listBooks, $books);
             }
             $response->setMessage("get books by category success");
@@ -191,7 +191,7 @@ class BookServices
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "INSERT INTO TBLBOOKS SET BOOKID = NULL, TITLE = ?, PRICE = ?, QUANTITY =?, CATEGORYID =?, AUTHORID =?, PUBLISHERID =?, URL = NULL";
+            $query = "INSERT INTO TBLBOOKS SET BOOKID = NULL, TITLE = ?, PRICE = ?, QUANTITY =?, CATEGORYID =?, AUTHORID =?, PUBLISHERID =?, RELASEDATE = ?, URL = NULL";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->title);
             $stmt->bindParam(2, $data->price);
@@ -199,6 +199,7 @@ class BookServices
             $stmt->bindParam(4, $data->categoryid);
             $stmt->bindParam(5, $data->authorid);
             $stmt->bindParam(6, $data->publisherid);
+            $stmt->bindParam(7, $data->relasedate);
             $this->connect->beginTransaction();
 
             if ($stmt->execute()) {
@@ -225,7 +226,7 @@ class BookServices
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "INSERT INTO TBLBOOKS SET TITLE = ?, PRICE = ?, QUANTITY =?, CATEGORYID =?, AUTHORID =?, PUBLISHERID =?, URL = NULL WHERE BOOKID = ?";
+            $query = "INSERT INTO TBLBOOKS SET TITLE = ?, PRICE = ?, QUANTITY =?, CATEGORYID =?, AUTHORID =?, PUBLISHERID =?, RELASEDATE = ?, URL = NULL WHERE BOOKID = ?";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->title);
             $stmt->bindParam(2, $data->price);
@@ -233,7 +234,8 @@ class BookServices
             $stmt->bindParam(4, $data->categoryid);
             $stmt->bindParam(5, $data->authorid);
             $stmt->bindParam(6, $data->publisherid);
-            $stmt->bindParam(7, $data->bookid);
+            $stmt->bindParam(7, $data->relasedate);
+            $stmt->bindParam(8, $data->bookid);
             $this->connect->beginTransaction();
 
             if ($stmt->execute()) {
