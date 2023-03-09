@@ -16,10 +16,10 @@ try {
     ) {
         $response = (new AuthorController())->getAuthorsDetail($data->authorid);
     } else {
-        $response = new Response(3, true, "Client error" . "Not enough parameters", null);
+        $response = new Response(3, true, "Can't get author id from client ", null);
     }
 } catch (Exception $ex) {
-    $response = new Response(4, true, "APi error" . "Not enough parameters", null);
+    $response = new Response(4, true, "Server has issue", null);
 }
 
 echo json_encode($response);

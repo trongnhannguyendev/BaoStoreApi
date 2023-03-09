@@ -22,10 +22,10 @@ try {
     ) {
         $response = (new AddressController())->insertAdress($data);
     } else {
-        $response = new Response(3, true, "Can't load addresses by user you choose", null);
+        $response = new Response(3, true, "Can't take data from client", null);
     }
 } catch (Exception $ex) {
-    $response = new Response(4, true, "Server down", null);
+    $response = new Response(4, true, "Server has issue", null);
 }
 
 echo json_encode($response);

@@ -14,10 +14,10 @@ try {
     if (isset($data->email) && isset($data->password)) {
         $response = (new UserController())->getUpdatePassword($data);
     } else {
-        $response = new Response(3, true, "Client error" . "Not enough parameters", null);
+        $response = new Response(3, true, "Can't take data from client", null);
     }
 } catch (Exception $ex) {
-    $response = new Response(4, true, "Api error" . "Not enough parameters", null);
+    $response = new Response(4, true, "Server has issue", null);
 }
 
 echo json_encode($response);

@@ -16,7 +16,7 @@ try {
     ) {
         $response = (new BookController())->getBooksByCategory($data->categoryid);
     } else {
-        $response = new Response(3, true, "Can't load books by author you choose", null);
+        $response = new Response(3, true, "Can't get category from client", null);
     }
 } catch (Exception $ex) {
     $response = new Response(4, true, "Server down", null);

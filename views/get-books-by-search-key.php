@@ -16,10 +16,10 @@ try {
     ) {
         $response = (new BookController())->getBooksBySearchKey($data->searchkey);
     } else {
-        $response = new Response(3, true, "Can't load books by searchkey", null);
+        $response = new Response(3, true, "Can't get search key from client", null);
     }
 } catch (Exception $ex) {
-    $response = new Response(4, true, "Server down", null);
+    $response = new Response(4, true, "Server has issue", null);
 }
 
 

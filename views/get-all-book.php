@@ -13,7 +13,7 @@ $response = null;
 try {
     $response = (new BookController())->getAllBooks();
 } catch (Exception $e) {
-    $response = new Response(4, true, "Server down" . $e->getMessage(), null);
+    $response = new Response(4, true, "Server has issue" . $e->getMessage(), null);
 }
 
 echo json_encode($response);

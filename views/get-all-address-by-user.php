@@ -16,10 +16,10 @@ try {
     ) {
         $response = (new AddressController())->getAllAddressesByUserID($data->userid);
     } else {
-        $response = new Response(3, true, "Can't load addresses by user you choose", null);
+        $response = new Response(3, true, "Can't get address of user", null);
     }
 } catch (Exception $ex) {
-    $response = new Response(4, true, "Server down", null);
+    $response = new Response(4, true, "Server has issue", null);
 }
 
 echo json_encode($response);
