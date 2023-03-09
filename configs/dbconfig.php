@@ -8,7 +8,7 @@ class DBConfig
             $this->connect = new PDO("mysql:host=localhost:3306;dbname=baostoredb", 'root', '');
             return $this->connect;
         } catch (Exception $ex) {
-            echo "Cann't connect to database " . $ex->getMessage();
+            echo "Can't connect to database " . $ex->getMessage();
         }
     }
 }

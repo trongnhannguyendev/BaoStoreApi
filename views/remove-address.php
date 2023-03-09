@@ -16,7 +16,7 @@ try {
         && isset($data->userid)
 
     ) {
-        $response = (new AddressController())->removeAdress($data);
+        $response = (new AddressController())->removeAddress($data);
     } else {
         $response = new Response(3, true, "Can't take data from client", null);
     }

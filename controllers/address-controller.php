@@ -21,9 +21,9 @@ class AddressController
     {
         return $this->services->updateAdress($data);
     }
-    public function removeAdress($data)
+    public function removeAddress($data)
     {
-        return $this->services->removeAdress($data);
+        return $this->services->removeAddress($data);
     }
     public function getDefaultAddressByUserID($userid)
     {

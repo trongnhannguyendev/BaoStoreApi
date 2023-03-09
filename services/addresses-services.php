@@ -26,7 +26,7 @@ class AddressServices
                 $addresses = new Addresses($ADDRESSID, $USERID, $LOCATION, $WARD, $DISTRICT, $CITY, $ADDRESSNAME, $ISDEFAULT);
                 array_push($listAddresss, $addresses);
             }
-            $response->setMessage("Get all addresses by userid success");
+            $response->setMessage("Get all addresses by user id success");
             $response->setError(false);
             $response->setResponeCode(1);
             $response->setData($listAddresss);
@@ -105,7 +105,7 @@ class AddressServices
         return $response;
     }
 
-    public function removeAdress($data)
+    public function removeAddress($data)
     {
         $response = Response::getDefaultInstance();
         try {
