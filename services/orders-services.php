@@ -44,41 +44,25 @@ class OrdersServices
         }
         return $response;
     }
-    //SELECT ORDERID FROM TBLORDERS WHERE USERID = ? ORDER BY CREATEDATE DESC LIMIT 1
+
     public function insertOrderDetail($data)
     {
         $response = Response::getDefaultInstance();
-        $response1 = Response::getDefaultInstance();
         try {
-            $query = "SELECT ORDERID FROM TBLORDERS WHERE USERID = ? ORDER BY CREATEDATE DESC LIMIT 1";
+            $query = "INSERT INTO TBLORDERDETAILS SET ORDERID = (SELECT ORDERID FROM TBLORDERS WHERE USERID = ? ORDER BY CREATEDATE DESC LIMIT 1), QUANTITY = ?, BOOKID =? ";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->userid);
-            $stmt->setFetchMode(PDO::FETCH_ASSOC);
-            $stmt->execute();
-            $listBook = [];
-            if ($stmt->rowCount() > 0) {
-                $row = $stmt->fetch();
-
-                $query2 = "INSERT INTO TBLORDERDETAILS SET ORDERID = ?, QUANTITY = ?, BOOKID =?";
-                $statement2 = $this->connect->prepare($query2);
-                $statement2->bindParam(1, $data->orderid);
-                $statement2->bindParam(2, $data->quantity);
-                $statement2->bindParam(3, $data->bookid);
-                $statement2->setFetchMode(PDO::FETCH_ASSOC);
-                $this->connect->beginTransaction();
-                if ($statement2->execute()) {
-                    $this->connect->commit();
-                    $response->setMessage("Insert order detail success");
-                    $response->setError(false);
-                    $response->setResponeCode(1);
-                } else {
-                    $this->connect->rollBack();
-                    $response->setMessage("Insert order detail fail");
-                    $response->setError(true);
-                    $response->setResponeCode(0);
-                }
+            $stmt->bindParam(2, $data->quantity);
+            $stmt->bindParam(3, $data->bookid);
+            $this->connect->beginTransaction();
+            if ($stmt->execute()) {
+                $this->connect->commit();
+                $response->setMessage("Insert order detail success");
+                $response->setError(false);
+                $response->setResponeCode(1);
             } else {
-                $response->setMessage("Get order id fail");
+                $this->connect->rollBack();
+                $response->setMessage("Insert order detail fail");
                 $response->setError(true);
                 $response->setResponeCode(0);
             }
