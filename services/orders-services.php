@@ -13,16 +13,15 @@ class OrdersServices
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "INSERT INTO TBLORDERS SET STATE = 1, TOTAL = ?, NOTE= ?,
+            $query = "INSERT INTO TBLORDERS SET STATE = 1, NOTE= ?,
                  FULLNAME=?, PHONENUMBER = ?,ADDRESS =?, PAYMENT = ?, USERID = ? ";
             $stmt = $this->connect->prepare($query);
-            $stmt->bindParam(1, $data->total);
-            $stmt->bindParam(2, $data->note);
-            $stmt->bindParam(3, $data->fullname);
-            $stmt->bindParam(4, $data->phonenumber);
-            $stmt->bindParam(5, $data->address);
-            $stmt->bindParam(6, $data->payment);
-            $stmt->bindParam(7, $data->userid);
+            $stmt->bindParam(1, $data->note);
+            $stmt->bindParam(2, $data->fullname);
+            $stmt->bindParam(3, $data->phonenumber);
+            $stmt->bindParam(4, $data->address);
+            $stmt->bindParam(5, $data->payment);
+            $stmt->bindParam(6, $data->userid);
             $this->connect->beginTransaction();
 
             if ($stmt->execute()) {
@@ -49,7 +48,7 @@ class OrdersServices
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "INSERT INTO TBLORDERDETAILS SET ORDERID = (SELECT ORDERID FROM TBLORDERS WHERE USERID = ? ORDER BY CREATEDATE DESC LIMIT 1), QUANTITY = ?, BOOKID =? ";
+            $query = "INSERT INTO TBLORDERDETAILS SET ORDERID = (SELECT ORDERID FROM TBLORDERS WHERE USERID = ? ORDER BY CREATEDATE DESC LIMIT 1), AMOUNT = ?, BOOKID =? ";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->userid);
             $stmt->bindParam(2, $data->quantity);
@@ -73,5 +72,20 @@ class OrdersServices
             $response->setResponeCode(5);
         }
         return $response;
+    }
+    public function getAllOrderByUserID($userid)
+    {
+    }
+    public function getOrderDetailByOrderID($orderid)
+    {
+    }
+    public function getOrderStatusDelivery($data)
+    {
+    }
+    public function getOrderStatusCancel($data)
+    {
+    }
+    public function getOrderStatusSuccess($data)
+    {
     }
 }

@@ -12,10 +12,12 @@ $response = null;
 
 try {
     if (
-        isset($data->total) && isset($data->note) &&
-        isset($data->fullname) && isset($data->phonenumber) &&
-        isset($data->address) && isset($data->payment)
-        && isset($data->userid)
+        isset($data->note) &&
+        isset($data->fullname) &&
+        isset($data->phonenumber) &&
+        isset($data->address) &&
+        isset($data->payment) &&
+        isset($data->userid)
     ) {
         $response = (new OrderController())->insertOrder($data);
     } else {

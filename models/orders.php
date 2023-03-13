@@ -3,7 +3,6 @@ class Orders
 {
     public $orderid;
     public $userid;
-    public $total;
     public $createdate;
     public $note;
     public $fullname;
@@ -12,11 +11,10 @@ class Orders
     public $payment;
     public $state;
 
-    public function __construct($orderid, $userid, $total, $createdate, $note, $fullname, $phonenumber, $address, $payment, $state)
+    public function __construct($orderid, $userid, $createdate, $note, $fullname, $phonenumber, $address, $payment, $state)
     {
         $this->orderid = $orderid;
         $this->userid = $userid;
-        $this->total = $total;
         $this->createdate = $createdate;
         $this->note = $note;
         $this->fullname = $fullname;
@@ -62,23 +60,6 @@ class Orders
         return $this;
     }
 
-    /**
-     * Get the value of total
-     */
-    public function getTotal()
-    {
-        return $this->total;
-    }
-
-    /**
-     * Set the value of total
-     */
-    public function setTotal($total): self
-    {
-        $this->total = $total;
-
-        return $this;
-    }
 
     /**
      * Get the value of createdate

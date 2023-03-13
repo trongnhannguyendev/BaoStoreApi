@@ -13,7 +13,8 @@ $response = null;
 try {
     if (
         isset($data->userid)  &&
-        isset($data->quantity) && isset($data->bookid)
+        isset($data->quantity) &&
+        isset($data->bookid)
 
     ) {
         $response = (new OrderController())->insertOrderDetail($data);
