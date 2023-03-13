@@ -1,7 +1,7 @@
 <?php
 include_once '../configs/dbconfig.php';
 include_once '../models/respone.php';
-
+include_once '../models/orders.php';
 class OrdersServices
 {
     public $connect;
@@ -44,28 +44,41 @@ class OrdersServices
         }
         return $response;
     }
-
+    //SELECT ORDERID FROM TBLORDERS WHERE USERID = ? ORDER BY CREATEDATE DESC LIMIT 1
     public function insertOrderDetail($data)
     {
         $response = Response::getDefaultInstance();
+        $response1 = Response::getDefaultInstance();
         try {
+            $query = "SELECT ORDERID FROM TBLORDERS WHERE USERID = ? ORDER BY CREATEDATE DESC LIMIT 1";
+            $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $data->userid);
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $stmt->execute();
+            $listBook = [];
+            if ($stmt->rowCount() > 0) {
+                $row = $stmt->fetch();
 
-            $query2 = "INSERT INTO TBLORDERDETAILS SET ORDERID = (SELECT ORDERID FROM TBLORDERS WHERE USERID = ? ORDER BY CREATEDATE DESC LIMIT 1), QUANTITY = ?, BOOKID =?";
-            $statement2 = $this->connect->prepare($query2);
-            $statement2->bindParam(1, $data->userid);
-            $statement2->bindParam(2, $data->quantity);
-            $statement2->bindParam(3, $data->bookid);
-            $statement2->setFetchMode(PDO::FETCH_ASSOC);
-            $statement2->execute();
-            $this->connect->beginTransaction();
-            if ($statement2->execute()) {
-                $this->connect->commit();
-                $response->setMessage("Insert order detail success");
-                $response->setError(false);
-                $response->setResponeCode(1);
+                $query2 = "INSERT INTO TBLORDERDETAILS SET ORDERID = ?, QUANTITY = ?, BOOKID =?";
+                $statement2 = $this->connect->prepare($query2);
+                $statement2->bindParam(1, $data->orderid);
+                $statement2->bindParam(2, $data->quantity);
+                $statement2->bindParam(3, $data->bookid);
+                $statement2->setFetchMode(PDO::FETCH_ASSOC);
+                $this->connect->beginTransaction();
+                if ($statement2->execute()) {
+                    $this->connect->commit();
+                    $response->setMessage("Insert order detail success");
+                    $response->setError(false);
+                    $response->setResponeCode(1);
+                } else {
+                    $this->connect->rollBack();
+                    $response->setMessage("Insert order detail fail");
+                    $response->setError(true);
+                    $response->setResponeCode(0);
+                }
             } else {
-                $this->connect->rollBack();
-                $response->setMessage("Insert order detail fail");
+                $response->setMessage("Get order id fail");
                 $response->setError(true);
                 $response->setResponeCode(0);
             }

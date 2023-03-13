@@ -187,7 +187,6 @@ class UserServices
                 $response->setResponeCode(0);
             }
         } catch (Exception $e) {
-
             $response->setMessage("Have issue with DB" . $e->getMessage());
             $response->setError(true);
             $response->setResponeCode(5);
@@ -200,7 +199,7 @@ class UserServices
         $response = Response::getDefaultInstance();
         try {
             $query = "UPDATE TBLUSERS SET
-                STATE = 0
+                STATE = 1
                 WHERE EMAIL = ?";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $email);
@@ -230,7 +229,7 @@ class UserServices
         $response = Response::getDefaultInstance();
         try {
             $query = "UPDATE TBLUSERS SET
-                STATE = 1
+                STATE = 0
                 WHERE EMAIL = ?";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $email);

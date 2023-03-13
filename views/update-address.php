@@ -4,7 +4,7 @@ header("Access-Control-Max-Age: 3600");
 header("Content-Type: application/json; charset=UTF-8");
 
 include_once '../controllers/address-controller.php';
-
+include_once '../models/respone.php';
 
 $data = json_decode(file_get_contents("php://input"));
 
@@ -14,11 +14,10 @@ try {
     if (
         isset($data->location)
         && isset($data->ward)
-        && isset($data->location)
         && isset($data->district)
         && isset($data->city)
         && isset($data->addressname)
-        && isset($data->userid)
+        && isset($data->addressid)
 
     ) {
         $response = (new AddressController())->updateAdress($data);

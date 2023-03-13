@@ -43,14 +43,15 @@ class BookServices
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "SELECT IMAGEID, BOOKID, URL FROM TBLIMAGES WHERE BOOKID = ?";
+            $query = "SELECT  URL FROM TBLIMAGES WHERE BOOKID = ?";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $bookid);
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $stmt->execute();
             $listImages = [];
             while ($row = $stmt->fetch()) {
                 extract($row);
-                $image = new Images($IMAGEID, $BOOKID, $URL, $ISDEFAULT);
+                $image = new Images($URL);
                 array_push($listImages, $image);
             }
             $response->setMessage("get all books success");
@@ -78,6 +79,7 @@ class BookServices
             $stmt->execute();
             $listBook = [];
             if ($stmt->rowCount() > 0) {
+                $row = $stmt->fetch();
                 extract($row);
                 $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $RELASEDATE = NULL, $URL = null);
                 array_push($listBook, $books);
@@ -191,7 +193,7 @@ class BookServices
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "INSERT INTO TBLBOOKS SET BOOKID = NULL, TITLE = ?, PRICE = ?, QUANTITY =?, CATEGORYID =?, AUTHORID =?, PUBLISHERID =?, RELASEDATE = ?, URL = NULL";
+            $query = "INSERT INTO TBLBOOKS SET BOOKID = NULL, TITLE = ?, PRICE = ?, QUANTITY =?, CATEGORYID =?, AUTHORID =?, PUBLISHERID =?, RELASEDATE = ?";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->title);
             $stmt->bindParam(2, $data->price);
