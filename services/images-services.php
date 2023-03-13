@@ -10,4 +10,13 @@ class ImagesServices
     {
         $this->connect = (new DBConfig())->getConnect();
     }
+    public function insertImages($data)
+    {
+    }
+    public function removeImages($data)
+    {
+    }
+    public function updateImages($data)
+    {
+    }
 }
