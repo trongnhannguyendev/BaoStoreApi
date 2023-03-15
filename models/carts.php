@@ -3,17 +3,17 @@ class Carts
 {
     public $userid;
     public $bookid;
-    public $quantity;
+    public $amount;
     public $title;
     public $price;
     public $url;
     public $isdefault;
 
-    public function __construct($userid, $bookid, $quantity, $title, $price, $url, $isdefault)
+    public function __construct($userid, $bookid, $amount, $title, $price, $url, $isdefault)
     {
         $this->userid = $userid;
         $this->bookid = $bookid;
-        $this->quantity = $quantity;
+        $this->amount = $amount;
         $this->title = $title;
         $this->price = $price;
         $this->url = $url;
@@ -56,23 +56,6 @@ class Carts
         return $this;
     }
 
-    /**
-     * Get the value of quantity
-     */
-    public function getQuantity()
-    {
-        return $this->quantity;
-    }
-
-    /**
-     * Set the value of quantity
-     */
-    public function setQuantity($quantity): self
-    {
-        $this->quantity = $quantity;
-
-        return $this;
-    }
 
     /**
      * Get the value of title
@@ -142,6 +125,24 @@ class Carts
     public function setIsdefault($isdefault): self
     {
         $this->isdefault = $isdefault;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of amount
+     */
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    /**
+     * Set the value of amount
+     */
+    public function setAmount($amount): self
+    {
+        $this->amount = $amount;
 
         return $this;
     }

@@ -3,19 +3,21 @@ class OrderDetail
 {
     public $orderdetailid;
     public $orderid;
-    public $bookname;
+    public $title;
     public $price;
     public $amount;
     public $total;
+    public $url;
 
-    public function __construct($orderdetailid, $orderid, $bookname, $price, $amount, $total)
+    public function __construct($orderdetailid, $orderid, $title, $price, $amount, $total, $url)
     {
         $this->orderdetailid = $orderdetailid;
         $this->orderid = $orderid;
-        $this->bookname = $bookname;
+        $this->title = $title;
         $this->price = $price;
         $this->amount = $amount;
         $this->total = $total;
+        $this->url = $url;
     }
 
     /**
@@ -54,23 +56,7 @@ class OrderDetail
         return $this;
     }
 
-    /**
-     * Get the value of bookname
-     */
-    public function getBookname()
-    {
-        return $this->bookname;
-    }
 
-    /**
-     * Set the value of bookname
-     */
-    public function setBookname($bookname): self
-    {
-        $this->bookname = $bookname;
-
-        return $this;
-    }
 
     /**
      * Get the value of price
@@ -122,6 +108,42 @@ class OrderDetail
     public function setTotal($total): self
     {
         $this->total = $total;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of url
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Set the value of url
+     */
+    public function setUrl($url): self
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of title
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set the value of title
+     */
+    public function setTitle($title): self
+    {
+        $this->title = $title;
 
         return $this;
     }

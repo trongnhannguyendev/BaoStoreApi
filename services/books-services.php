@@ -1,6 +1,7 @@
 <?php
 include_once '../configs/dbconfig.php';
 include_once '../models/books.php';
+include_once '../models/book-detail.php';
 include_once '../models/respone.php';
 include_once '../models/categories.php';
 include_once '../models/images.php';
@@ -16,15 +17,16 @@ class BookServices
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "SELECT TBLBS.BOOKID, TITLE, PRICE, QUANTITY,CATEGORYID, AUTHORID, PUBLISHERID, URL,
-                 ISDEFAULT FROM TBLBOOKS TBLBS INNER JOIN TBLIMAGES TBLIMG ON TBLBS.BOOKID = TBLIMG.BOOKID HAVING ISDEFAULT = 1";
+            $query = "SELECT TBLBS.BOOKID, TITLE, PRICE ,CATEGORYID, AUTHORID, PUBLISHERID, URL,RELASEDATE,ISDEFAULT FROM TBLBOOKS TBLBS 
+INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
+ HAVING ISDEFAULT = 1";
             $stmt = $this->connect->prepare($query);
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $stmt->execute();
             $listBook = [];
             while ($row = $stmt->fetch()) {
                 extract($row);
-                $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $RELASEDATE = NULL, $URL);
+                $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $RELASEDATE, $URL);
                 array_push($listBook, $books);
             }
             $response->setMessage("get all books success");
@@ -71,8 +73,12 @@ class BookServices
         $response = Response::getDefaultInstance();
 
         try {
-            $query = "SELECT BOOKID, TITLE, PRICE, QUANTITY,CATEGORYID, AUTHORID, PUBLISHERID, RELASEDATE
-                FROM TBLBOOKS WHERE BOOKID = ? ";
+            $query = "SELECT TBLBS.BOOKID, TITLE, PRICE, QUANTITY,TBLCS.CATEGORYNAME, TBLAS.AUTHORNAME ,TBLPS.PUBLISHERNAME, URL,ISDEFAULT, RELEASEDATE, TBLBS.DESCRIPTION FROM TBLBOOKS TBLBS 
+INNER JOIN TBLIMAGES TBLIMG ON TBLBS.BOOKID = TBLIMG.BOOKID
+INNER JOIN TBLAUTHORS TBLAS ON TBLBS.AUTHORID = TBLAS.AUTHORID
+INNER JOIN TBLPUBLISHERS TBLPS ON TBLBS.PUBLISHERID = TBLPS.PUBLISHERID 
+INNER JOIN TBLCATEGORIES TBLCS ON TBLBS.CATEGORYID = TBLCS.CATEGORYID
+HAVING ISDEFAULT = 1 AND BOOKID = ?";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $bookid);
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -81,7 +87,7 @@ class BookServices
             if ($stmt->rowCount() > 0) {
                 $row = $stmt->fetch();
                 extract($row);
-                $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $RELASEDATE = NULL, $URL = null);
+                $books = new BookDetail($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYNAME, $AUTHORNAME, $PUBLISHERNAME, $RELEASEDATE, $DESCRIPTION);
                 array_push($listBook, $books);
             }
             $response->setMessage("get detail book success");
@@ -100,8 +106,9 @@ class BookServices
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "SELECT TBLBS.BOOKID, TITLE, PRICE, QUANTITY,CATEGORYID, AUTHORID, PUBLISHERID, URL,
-            ISDEFAULT FROM TBLBOOKS TBLBS INNER JOIN TBLIMAGES TBLIMG ON TBLBS.BOOKID = TBLIMG.BOOKID HAVING ISDEFAULT = 1 AND CATEGORYID = ?";
+            $query = "SELECT TBLBS.BOOKID, TITLE, PRICE ,CATEGORYID, AUTHORID, PUBLISHERID, URL,RELASEDATE,ISDEFAULT FROM TBLBOOKS TBLBS 
+INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
+ HAVING ISDEFAULT = 1 AND CATEGORYID = ?";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $categoryid);
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -128,8 +135,9 @@ class BookServices
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "SELECT TBLBS.BOOKID, TITLE, PRICE, QUANTITY,CATEGORYID, AUTHORID, PUBLISHERID, URL,ISDEFAULT FROM 
-                TBLBOOKS TBLBS INNER JOIN TBLIMAGES TBLIMG ON TBLBS.BOOKID = TBLIMG.BOOKID HAVING ISDEFAULT = 1 AND TITLE LIKE ?";
+            $query = "SELECT TBLBS.BOOKID, TITLE, PRICE ,CATEGORYID, AUTHORID, PUBLISHERID, URL,RELASEDATE,ISDEFAULT FROM TBLBOOKS TBLBS 
+INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
+ HAVING ISDEFAULT = 1 AND TITLE LIKE ?";
             $searchkey = '%' . $searchkey . '%';
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $searchkey);
@@ -157,8 +165,9 @@ class BookServices
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "SELECT TBLBS.BOOKID, TITLE, PRICE, QUANTITY,CATEGORYID, AUTHORID, PUBLISHERID, URL,
-            ISDEFAULT FROM TBLBOOKS TBLBS INNER JOIN TBLIMAGES TBLIMG ON TBLBS.BOOKID = TBLIMG.BOOKID HAVING ISDEFAULT = 1 AND AUTHORID = ?";
+            $query = "SELECT TBLBS.BOOKID, TITLE, PRICE ,CATEGORYID, AUTHORID, PUBLISHERID, URL,RELASEDATE,ISDEFAULT FROM TBLBOOKS TBLBS 
+INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
+ HAVING ISDEFAULT = 1 AND AUTHORID = ?";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $authorid);
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -181,14 +190,6 @@ class BookServices
         return $response;
     }
 
-    // public function setDeactiveBook($bookid)
-    // {
-    // }
-
-    // public function setActiveBook($bookid)
-    // {
-    // }
-
     public function insertBook($data)
     {
         $response = Response::getDefaultInstance();
@@ -206,12 +207,12 @@ class BookServices
 
             if ($stmt->execute()) {
                 $this->connect->commit();
-                $response->setMessage("Insert publisher success");
+                $response->setMessage("Insert book success");
                 $response->setError(false);
                 $response->setResponeCode(1);
             } else {
                 $this->connect->rollBack();
-                $response->setMessage("Insert publisher failed");
+                $response->setMessage("Insert book failed");
                 $response->setError(true);
                 $response->setResponeCode(0);
             }
@@ -228,7 +229,7 @@ class BookServices
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "INSERT INTO TBLBOOKS SET TITLE = ?, PRICE = ?, QUANTITY =?, CATEGORYID =?, AUTHORID =?, PUBLISHERID =?, RELASEDATE = ?, URL = NULL WHERE BOOKID = ?";
+            $query = "INSERT INTO TBLBOOKS SET TITLE = ?, PRICE = ?, QUANTITY =?, CATEGORYID =?, AUTHORID =?, PUBLISHERID =?, RELASEDATE = ? WHERE BOOKID = ?";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->title);
             $stmt->bindParam(2, $data->price);
@@ -242,12 +243,42 @@ class BookServices
 
             if ($stmt->execute()) {
                 $this->connect->commit();
-                $response->setMessage("Insert publisher success");
+                $response->setMessage("Update book success");
                 $response->setError(false);
                 $response->setResponeCode(1);
             } else {
                 $this->connect->rollBack();
-                $response->setMessage("Insert publisher failed");
+                $response->setMessage("Update book failed");
+                $response->setError(true);
+                $response->setResponeCode(0);
+            }
+        } catch (Exception $e) {
+
+            $response->setMessage("Have issue with DB" . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(5);
+        }
+    }
+
+    public function updateQuantityBook($data)
+    {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "INSERT INTO TBLBOOKS SET QUANTITY WHERE BOOKID = ?";
+            $stmt = $this->connect->prepare($query);
+
+            $stmt->bindParam(1, $data->quantity);
+            $stmt->bindParam(2, $data->bookid);
+            $this->connect->beginTransaction();
+
+            if ($stmt->execute()) {
+                $this->connect->commit();
+                $response->setMessage("Update quantity book success");
+                $response->setError(false);
+                $response->setResponeCode(1);
+            } else {
+                $this->connect->rollBack();
+                $response->setMessage("Update quantity book failed");
                 $response->setError(true);
                 $response->setResponeCode(0);
             }

@@ -40,4 +40,8 @@ class BookController
     {
         return $this->services->updateInformationBook($data);
     }
+    public function updateQuantityBook($data)
+    {
+        return $this->services->updateQuantityBook($data);
+    }
 }

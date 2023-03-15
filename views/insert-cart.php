@@ -14,7 +14,7 @@ try {
     if (
         isset($data->userid)
         && isset($data->bookid)
-        && isset($data->quantity)
+        && isset($data->amount)
     ) {
         $response = (new CartController())->insertCart($data);
     } else {

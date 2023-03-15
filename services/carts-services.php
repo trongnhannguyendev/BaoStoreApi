@@ -13,7 +13,7 @@ class CartsServices
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = " SELECT USERID, TBLCS.BOOKID, TBLCS.QUANTITY,TITLE, PRICE, URL,ISDEFAULT FROM TBLCARTS TBLCS
+            $query = " SELECT USERID, TBLCS.BOOKID, AMOUNT,TITLE, PRICE, URL,ISDEFAULT FROM TBLCARTS TBLCS
                     INNER JOIN TBLBOOKS TBLBS ON TBLCS.BOOKID = TBLBS.BOOKID
                     INNER JOIN TBLIMAGES TBLIMG ON TBLBS.BOOKID = TBLIMG.BOOKID 
                     HAVING ISDEFAULT = 1 AND USERID = ?";
@@ -24,7 +24,7 @@ class CartsServices
             $listCarts = [];
             while ($row = $stmt->fetch()) {
                 extract($row);
-                $cart = new Carts($USERID, $BOOKID, $QUANTITY, $TITLE, $PRICE, $URL, $ISDEFAULT);
+                $cart = new Carts($USERID, $BOOKID, $AMOUNT, $TITLE, $PRICE, $URL, $ISDEFAULT);
                 array_push($listCarts, $cart);
             }
             $response->setMessage("get carts by userID success");
@@ -43,11 +43,11 @@ class CartsServices
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "INSERT INTO TBLCARTS SET USERID =?, BOOKID = ?, QUANTITY = ? ";
+            $query = "INSERT INTO TBLCARTS SET USERID =?, BOOKID = ?, AMOUNT = ? ";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->userid);
             $stmt->bindParam(2, $data->bookid);
-            $stmt->bindParam(3, $data->quantity);
+            $stmt->bindParam(3, $data->amount);
             $this->connect->beginTransaction();
 
             if ($stmt->execute()) {
@@ -105,7 +105,7 @@ class CartsServices
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "UPDATE TBLCARTS SET  QUANTITY = QUANTITY + 1  WHERE  USERID = ? AND BOOKID = ?";
+            $query = "UPDATE TBLCARTS SET  AMOUNT = AMOUNT + 1  WHERE  USERID = ? AND BOOKID = ?";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->userid);
             $stmt->bindParam(2, $data->bookid);
@@ -136,7 +136,7 @@ class CartsServices
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "UPDATE TBLCARTS SET  QUANTITY = QUANTITY - 1  WHERE  USERID = ? AND BOOKID = ?";
+            $query = "UPDATE TBLCARTS SET  AMOUNT = AMOUNT - 1  WHERE  USERID = ? AND BOOKID = ?";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->userid);
             $stmt->bindParam(2, $data->bookid);
@@ -167,7 +167,7 @@ class CartsServices
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "DELETE FROM TBLCARTS WHERE  USERID = ? AND BOOKID = ? AND QUANTITY = 0";
+            $query = "DELETE FROM TBLCARTS WHERE  USERID = ? AND BOOKID = ? AND AMOUNT = 0";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->userid);
             $stmt->bindParam(2, $data->bookid);

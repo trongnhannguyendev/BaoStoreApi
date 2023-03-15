@@ -75,17 +75,139 @@ class OrdersServices
     }
     public function getAllOrderByUserID($userid)
     {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "SELECT ORDERID, USERID, CREATEDATE, NOTE, FULLNAME, PHONENUMBER, ADDRESS, PAYMENT, STATE FROM TBLORDERS WHERE USERID =?";
+            $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $userid);
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $stmt->execute();
+            $listOrder = [];
+            while ($row = $stmt->fetch()) {
+                extract($row);
+                $order = new Orders($ORDERID, $USERID, $CREATEDATE, $NOTE, $FULLNAME, $PHONENUMBER, $ADDRESS, $PAYMENT, $STATE);
+                array_push($listOrder, $order);
+            }
+            $response->setMessage("get all orders success");
+            $response->setError(false);
+            $response->setResponeCode(1);
+            $response->setData($listOrder);
+        } catch (Exception $e) {
+            $response->setMessage("Have issue with DB" . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(0);
+        }
+        return $response;
     }
     public function getOrderDetailByOrderID($orderid)
     {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "SELECT ORDERDETAILID, ORDERID, TBLBS.TITLE  , AMOUNT, TBLBS.PRICE, TBLBS.PRICE * AMOUNT AS TOTAL, TBLIS.URL FROM TBLORDERDETAILS TBLODS
+                    INNER JOIN TBLBOOKS TBLBS ON TBLODS.BOOKID = TBLBS.BOOKID
+                    INNER JOIN TBLiMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
+                    WHERE ORDERID = ? AND TBLIS.ISDEFAULT = 1";
+            $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $orderid);
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $stmt->execute();
+            $listOrder = [];
+            while ($row = $stmt->fetch()) {
+                extract($row);
+                $order = new OrderDetail($ORDERDETAILID, $ORDERID, $TITLE, $PRICE, $AMOUNT, $TOTAL, $URL);
+                array_push($listOrder, $order);
+            }
+            $response->setMessage("get all order detail of order success");
+            $response->setError(false);
+            $response->setResponeCode(1);
+            $response->setData($listOrder);
+        } catch (Exception $e) {
+            $response->setMessage("Have issue with DB" . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(0);
+        }
+        return $response;
     }
     public function getOrderStatusDelivery($data)
     {
+
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "SELECT ORDERID, USERID, CREATEDATE, NOTE, FULLNAME, PHONENUMBER, ADDRESS, PAYMENT, STATE FROM TBLORDERS WHERE USERID =? AND STATE = 2";
+            $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $userid);
+
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $stmt->execute();
+            $listOrder = [];
+            while ($row = $stmt->fetch()) {
+                extract($row);
+                $order = new Orders($ORDERID, $USERID, $CREATEDATE, $NOTE, $FULLNAME, $PHONENUMBER, $ADDRESS, $PAYMENT, $STATE);
+                array_push($listOrder, $order);
+            }
+            $response->setMessage("get all orders delivery");
+            $response->setError(false);
+            $response->setResponeCode(1);
+            $response->setData($listOrder);
+        } catch (Exception $e) {
+            $response->setMessage("Have issue with DB" . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(0);
+        }
+        return $response;
     }
     public function getOrderStatusCancel($data)
     {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "SELECT ORDERID, USERID, CREATEDATE, NOTE, FULLNAME, PHONENUMBER, ADDRESS, PAYMENT, STATE FROM TBLORDERS WHERE USERID =? AND STATE = 0";
+            $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $userid);
+
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $stmt->execute();
+            $listOrder = [];
+            while ($row = $stmt->fetch()) {
+                extract($row);
+                $order = new Orders($ORDERID, $USERID, $CREATEDATE, $NOTE, $FULLNAME, $PHONENUMBER, $ADDRESS, $PAYMENT, $STATE);
+                array_push($listOrder, $order);
+            }
+            $response->setMessage("get all orders cancel");
+            $response->setError(false);
+            $response->setResponeCode(1);
+            $response->setData($listOrder);
+        } catch (Exception $e) {
+            $response->setMessage("Have issue with DB" . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(0);
+        }
+        return $response;
     }
     public function getOrderStatusSuccess($data)
     {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "SELECT ORDERID, USERID, CREATEDATE, NOTE, FULLNAME, PHONENUMBER, ADDRESS, PAYMENT, STATE FROM TBLORDERS WHERE USERID =? AND STATE = 3";
+            $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $userid);
+
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $stmt->execute();
+            $listOrder = [];
+            while ($row = $stmt->fetch()) {
+                extract($row);
+                $order = new Orders($ORDERID, $USERID, $CREATEDATE, $NOTE, $FULLNAME, $PHONENUMBER, $ADDRESS, $PAYMENT, $STATE);
+                array_push($listOrder, $order);
+            }
+            $response->setMessage("get all orders success");
+            $response->setError(false);
+            $response->setResponeCode(1);
+            $response->setData($listOrder);
+        } catch (Exception $e) {
+            $response->setMessage("Have issue with DB" . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(0);
+        }
+        return $response;
     }
 }

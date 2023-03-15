@@ -17,4 +17,25 @@ class OrderController
     {
         return $this->services->insertOrderDetail($data);
     }
+    public function getAllOrderByUserID($userid)
+    {
+        return $this->services->getAllOrderByUserID($userid);
+    }
+
+    public function getOrderDetailByOrderID($orderid)
+    {
+        return $this->services->getOrderDetailByOrderID($orderid);
+    }
+    public function getOrderStatusDelivery($data)
+    {
+        return $this->services->getOrderStatusDelivery($data);
+    }
+    public function getOrderStatusCancel($data)
+    {
+        return $this->services->getOrderStatusCancel($data);
+    }
+    public function getOrderStatusSuccess($data)
+    {
+        return $this->services->getOrderStatusSuccess($data);
+    }
 }
