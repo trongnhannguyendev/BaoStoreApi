@@ -128,7 +128,7 @@ class OrdersServices
         }
         return $response;
     }
-    public function getOrderStatusDelivery($data)
+    public function getOrderStatusDelivery($userid)
     {
 
         $response = Response::getDefaultInstance();
@@ -156,14 +156,13 @@ class OrdersServices
         }
         return $response;
     }
-    public function getOrderStatusCancel($data)
+    public function getOrderStatusCancel($userid)
     {
         $response = Response::getDefaultInstance();
         try {
             $query = "SELECT ORDERID, USERID, CREATEDATE, NOTE, FULLNAME, PHONENUMBER, ADDRESS, PAYMENT, STATE FROM TBLORDERS WHERE USERID =? AND STATE = 0";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $userid);
-
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $stmt->execute();
             $listOrder = [];
@@ -183,7 +182,7 @@ class OrdersServices
         }
         return $response;
     }
-    public function getOrderStatusSuccess($data)
+    public function getOrderStatusSuccess($userid)
     {
         $response = Response::getDefaultInstance();
         try {

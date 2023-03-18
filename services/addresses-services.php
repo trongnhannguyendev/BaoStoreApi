@@ -42,7 +42,7 @@ class AddressServices
         $response = Response::getDefaultInstance();
         try {
             $query = "INSERT INTO TBLADDRESSES SET ADDRESSID = NULL, 
-                USERID =?, LOCATION =? , WARD =?, DISTRICT =?, CITY =?, ADDRESSNAME =?, ISDEFAULT 0 ";
+                USERID =?, LOCATION =? , WARD =?, DISTRICT =?, CITY =?, ADDRESSNAME =?, ISDEFAULT = 0 ";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->userid);
             $stmt->bindParam(2, $data->location);
@@ -109,7 +109,7 @@ class AddressServices
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "DELETE TBLADDRESSES WHERE ADDRESSID = ? AND USERID = ?";
+            $query = "DELETE FROM TBLADDRESSES WHERE ADDRESSID = ? AND USERID = ?";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->addressid);
             $stmt->bindParam(2, $data->userid);
@@ -176,10 +176,10 @@ class AddressServices
                 WHERE USERID =? AND ISDEFAULT = 1";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $userid);
-            $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $stmt->execute();
             $listAddresss = [];
             if ($stmt->rowCount() > 0) {
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 extract($row);
                 $addresses = new Addresses($ADDRESSID, $USERID, $LOCATION, $WARD, $DISTRICT, $CITY, $ADDRESSNAME, $ISDEFAULT);
                 array_push($listAddresss, $addresses);

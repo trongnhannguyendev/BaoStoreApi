@@ -12,11 +12,12 @@ class OrderController
     {
         return $this->services->insertOrder($data);
     }
-
+    //done
     public function insertOrderDetail($data)
     {
         return $this->services->insertOrderDetail($data);
     }
+    //done
     public function getAllOrderByUserID($userid)
     {
         return $this->services->getAllOrderByUserID($userid);
@@ -26,16 +27,16 @@ class OrderController
     {
         return $this->services->getOrderDetailByOrderID($orderid);
     }
-    public function getOrderStatusDelivery($data)
+    public function getOrderStatusDelivery($userid)
     {
-        return $this->services->getOrderStatusDelivery($data);
+        return $this->services->getOrderStatusDelivery($userid);
     }
-    public function getOrderStatusCancel($data)
+    public function getOrderStatusCancel($userid)
     {
-        return $this->services->getOrderStatusCancel($data);
+        return $this->services->getOrderStatusCancel($userid);
     }
-    public function getOrderStatusSuccess($data)
+    public function getOrderStatusSuccess($userid)
     {
-        return $this->services->getOrderStatusSuccess($data);
+        return $this->services->getOrderStatusSuccess($userid);
     }
 }

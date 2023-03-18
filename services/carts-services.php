@@ -49,7 +49,6 @@ class CartsServices
             $stmt->bindParam(2, $data->bookid);
             $stmt->bindParam(3, $data->amount);
             $this->connect->beginTransaction();
-
             if ($stmt->execute()) {
                 $this->connect->commit();
                 $response->setMessage("Insert cart success");

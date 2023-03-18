@@ -10,6 +10,7 @@ class AuthorController
     }
     public function getAllAuthors()
     {
+        return $this->services->getAllAuthors();
     }
     public function getAuthorsDetail($authorid)
     {

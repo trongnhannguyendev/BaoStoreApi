@@ -7,9 +7,8 @@ class Carts
     public $title;
     public $price;
     public $url;
-    public $isdefault;
 
-    public function __construct($userid, $bookid, $amount, $title, $price, $url, $isdefault)
+    public function __construct($userid, $bookid, $amount, $title, $price, $url)
     {
         $this->userid = $userid;
         $this->bookid = $bookid;
@@ -17,7 +16,6 @@ class Carts
         $this->title = $title;
         $this->price = $price;
         $this->url = $url;
-        $this->isdefault = $isdefault;
     }
 
     /**
@@ -107,24 +105,6 @@ class Carts
     public function setUrl($url): self
     {
         $this->url = $url;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of isdefault
-     */
-    public function getIsdefault()
-    {
-        return $this->isdefault;
-    }
-
-    /**
-     * Set the value of isdefault
-     */
-    public function setIsdefault($isdefault): self
-    {
-        $this->isdefault = $isdefault;
 
         return $this;
     }
