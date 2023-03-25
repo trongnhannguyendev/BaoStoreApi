@@ -7,11 +7,13 @@ include_once '../models/respone.php';
 include_once '../models/verification-code.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
-require 'C:\Users\tranv\vendor\autoload.php';
-require '../libs/PHPMailer-master/src/PHPMailer.php';
-require '../libs/PHPMailer-master/src/phpmailer\src\SMTP.php';
-require '../libs/PHPMailer-master/src/phpmailer\src\Exception.php';
+
+require '../vendor/autoload.php';
+require '../vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require '../vendor/phpmailer/phpmailer/src/SMTP.php';
+require '../vendor/phpmailer/phpmailer/src/Exception.php';
 $mail = new PHPMailer();
 
 $data = json_decode(file_get_contents("php://input"));
