@@ -7,10 +7,11 @@ include_once '../models/respone.php';
 include_once '../models/verification-code.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
+
 require 'C:\Users\tranv\vendor\autoload.php';
-require 'C:\Users\tranv\vendor\phpmailer\phpmailer\src\PHPMailer.php'; 
-require 'C:\Users\tranv\vendor\phpmailer\phpmailer\src\SMTP.php'; 
-require 'C:\Users\tranv\vendor\phpmailer\phpmailer\src\Exception.php';
+require '../libs/PHPMailer-master/src/PHPMailer.php';
+require '../libs/PHPMailer-master/src/phpmailer\src\SMTP.php';
+require '../libs/PHPMailer-master/src/phpmailer\src\Exception.php';
 $mail = new PHPMailer();
 
 $data = json_decode(file_get_contents("php://input"));
@@ -18,7 +19,7 @@ $response = Response::getDefaultInstance();
 
 if (isset($data->email)) {
     $listCodes = [];
-    
+
     $rand_code = random_int(1000, 9999);
 
     $mail->isSMTP();
@@ -39,7 +40,7 @@ if (isset($data->email)) {
     $mail->Body = $mailContent;
 
     if (!$mail->send()) {
-        $response->setMessage("Message could not be sent: ".$mail->ErrorInfo);
+        $response->setMessage("Message could not be sent: " . $mail->ErrorInfo);
         $response->setError(true);
         $response->setResponeCode(6);
     } else {
@@ -51,5 +52,4 @@ if (isset($data->email)) {
         $response->setData($verificationcode);
     }
     echo json_encode($response);
-    
 }
