@@ -72,4 +72,8 @@ class UserController
     {
         return $this->services->setDeactiveUser($email);
     }
+    public function getPasswordByEmail($email)
+    {
+        return $this->services->getPasswordByEmail($email);
+    }
 }

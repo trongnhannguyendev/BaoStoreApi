@@ -253,4 +253,27 @@ class UserServices
         }
         return $response;
     }
+    public function getPasswordByEmail($email)
+    {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "SELECT PASSWORD FROM TBLUSERS WHERE
+                EMAIL = ?";
+            $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $email);
+            $stmt->execute();
+            $listUsers = [];
+            if ($stmt->rowCount() > 0) {
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                extract($row);
+                $user = new User($USERID, $EMAIL, $PASSWORD, $FULLNAME, $PHONENUMBER, $ROLE, $STATE);
+                array_push($listUsers, $user);
+                $response->setData($listUsers);
+                $response->setResponeCode(1);
+            }
+        } catch (Exception $e) {
+            $response->setError(true);
+            $response->setMessage($e->getMessage());
+        }
+    }
 }
