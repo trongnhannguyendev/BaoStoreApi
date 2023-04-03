@@ -294,7 +294,7 @@ INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "INSERT INTO TBLBOOKS SET STATE = 1, WHERE BOOKID = ?";
+            $query = "INSERT INTO TBLBOOKS SET STATE = 1 WHERE BOOKID = ?";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->state);
             $stmt->bindParam(2, $data->bookid);
@@ -322,7 +322,7 @@ INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "INSERT INTO TBLBOOKS SET STATE = 0, WHERE BOOKID = ?";
+            $query = "INSERT INTO TBLBOOKS SET STATE = 0 WHERE BOOKID = ?";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->state);
             $stmt->bindParam(2, $data->bookid);
