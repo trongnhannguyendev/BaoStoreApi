@@ -14,14 +14,14 @@ class PublishersService
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "SELECT PUBLISHERID, PUBLISHERNAME FROM TBLPUBLISHERS";
+            $query = "SELECT PUBLISHERID, PUBLISHERNAME, STATE FROM TBLPUBLISHERS";
             $stmt = $this->connect->prepare($query);
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $stmt->execute();
             $listPublishers = [];
             while ($row = $stmt->fetch()) {
                 extract($row);
-                $publisher = new Publishers($PUBLISHERID, $PUBLISHERNAME);
+                $publisher = new Publishers($PUBLISHERID, $PUBLISHERNAME, $STATE);
                 array_push($listPublishers, $publisher);
             }
             $response->setMessage("get all publishers success");

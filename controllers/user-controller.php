@@ -21,7 +21,7 @@ class UserController
                 if (strcmp($password, $response->getData()[0]->getPassword()) == 0) {
                     $response->setResponeCode(1);
                     $response->setMessage("Login successfull");
-                    $response->getData()[0]->setPassword(null);
+                    // $response->getData()[0]->setPassword(null);
                 } else {
                     $response->setResponeCode(0);
                     $response->setMessage("Login failed");

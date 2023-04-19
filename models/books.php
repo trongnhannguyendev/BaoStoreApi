@@ -10,8 +10,10 @@ class Book
        public $publisherid;
        public $releasedate;
        public $url;
+       public $state;
 
-       public function __construct($bookid, $title, $price, $quantity, $categoryid, $authorid, $publisherid, $releasedate, $url)
+
+       public function __construct($bookid, $title, $price, $quantity, $categoryid, $authorid, $publisherid, $releasedate, $url, $state)
        {
               $this->bookid = $bookid;
               $this->title = $title;
@@ -22,7 +24,10 @@ class Book
               $this->publisherid = $publisherid;
               $this->releasedate = $releasedate;
               $this->url = $url;
+              $this->state = $state;
        }
+
+     
 
        /**
         * Get the value of bookid
@@ -182,6 +187,24 @@ class Book
        public function setUrl($url): self
        {
               $this->url = $url;
+
+              return $this;
+       }
+
+       /**
+        * Get the value of state
+        */
+       public function getState()
+       {
+              return $this->state;
+       }
+
+       /**
+        * Set the value of state
+        */
+       public function setState($state): self
+       {
+              $this->state = $state;
 
               return $this;
        }

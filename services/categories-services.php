@@ -14,14 +14,15 @@ class CategoriesService
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "SELECT CATEGORYID, CATEGORYNAME FROM TBLCATEGORIES";
+            $query = "SELECT CATEGORYID, CATEGORYNAME, STATE FROM TBLCATEGORIES";
             $stmt = $this->connect->prepare($query);
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $stmt->execute();
             $listCates = [];
             while ($row = $stmt->fetch()) {
                 extract($row);
-                $cates = new Categories($CATEGORYID, $CATEGORYNAME);
+                $cates = new Categories($CATEGORYID, $CATEGORYNAME, $STATE);
+                array_push($listAuthors, $author);
                 array_push($listCates, $cates);
             }
             $response->setMessage("get all cate success");
@@ -39,7 +40,7 @@ class CategoriesService
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "INSERT INTO TBLCATEGORIES SET CATEGORYNAME =? ";
+            $query = "INSERT INTO TBLCATEGORIES SET CATEGORYNAME =?, STATE = 1 ";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $categoryname);
             $this->connect->beginTransaction();

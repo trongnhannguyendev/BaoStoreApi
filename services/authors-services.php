@@ -22,7 +22,7 @@ class AuthorsService
             $listAuthors = [];
             while ($row = $stmt->fetch()) {
                 extract($row);
-                $author = new Authors($AUTHORID, $AUTHORNAME, $DOB, $DESCRIPTION);
+                $author = new Authors($AUTHORID, $AUTHORNAME, $DOB, $DESCRIPTION, $STATE);
                 array_push($listAuthors, $author);
             }
             $response->setMessage("get auhthors success");
@@ -50,7 +50,7 @@ class AuthorsService
             if ($stmt->rowCount() > 0) {
                 $row = $stmt->fetch();
                 extract($row);
-                $author = new Authors($AUTHORID, $AUTHORNAME, $DOB, $DESCRIPTION);
+                $author = new Authors($AUTHORID, $AUTHORNAME, $DOB, $DESCRIPTION, $STATE);
                 array_push($listAuthors, $author);
             }
             $response->setMessage("get auhthors success");
@@ -69,7 +69,7 @@ class AuthorsService
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "INSERT INTO TBLAUTHORS SET AUTHORNAME = ?, DOB= ?, DESCRIPTION = ? ";
+            $query = "INSERT INTO TBLAUTHORS SET AUTHORNAME = ?, DOB= ?, DESCRIPTION = ?, STATE = 1 ";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->authorname);
             $stmt->bindParam(2, $data->dob);

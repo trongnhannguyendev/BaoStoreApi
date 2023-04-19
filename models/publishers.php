@@ -4,17 +4,22 @@ class Publishers
 {
     public $publisherid;
     public $publishername;
+    public $state;
 
-    public function __construct($publisherid, $publishername)
+
+    public function __construct($publisherid, $publishername, $state)
     {
         $this->publisherid = $publisherid;
         $this->publishername = $publishername;
+        $this->state = $state;
     }
+
+    
 
     /**
      * Get the value of publisherid
      */
-    public function getPublisherID()
+    public function getPublisherid()
     {
         return $this->publisherid;
     }
@@ -22,7 +27,7 @@ class Publishers
     /**
      * Set the value of publisherid
      */
-    public function setPublisherID($publisherid): self
+    public function setPublisherid($publisherid): self
     {
         $this->publisherid = $publisherid;
 
@@ -32,7 +37,7 @@ class Publishers
     /**
      * Get the value of publishername
      */
-    public function getPublisherName()
+    public function getPublishername()
     {
         return $this->publishername;
     }
@@ -40,9 +45,27 @@ class Publishers
     /**
      * Set the value of publishername
      */
-    public function setPublisherName($publishername): self
+    public function setPublishername($publishername): self
     {
         $this->publishername = $publishername;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of state
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * Set the value of state
+     */
+    public function setState($state): self
+    {
+        $this->state = $state;
 
         return $this;
     }

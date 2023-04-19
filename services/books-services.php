@@ -17,7 +17,7 @@ class BookServices
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "SELECT TBLBS.BOOKID, TITLE, PRICE,QUANTITY ,CATEGORYID, AUTHORID, PUBLISHERID, URL ,RELEASEDATE, ISDEFAULT FROM TBLBOOKS TBLBS 
+            $query = "SELECT TBLBS.BOOKID, TITLE, PRICE,QUANTITY ,CATEGORYID, AUTHORID, PUBLISHERID, URL ,RELEASEDATE, ISDEFAULT, STATE FROM TBLBOOKS TBLBS 
 INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
  HAVING ISDEFAULT = 1";
             $stmt = $this->connect->prepare($query);
@@ -26,7 +26,8 @@ INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
             $listBook = [];
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 extract($row);
-                $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $RELEASEDATE, $URL);
+                $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $RELEASEDATE, $URL, $STATE);
+                array_push($listAuthors, $author);
                 array_push($listBook, $books);
             }
             $response->setMessage("get all books success");
@@ -106,7 +107,7 @@ HAVING ISDEFAULT = 1 AND BOOKID = ?";
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "SELECT TBLBS.BOOKID, TITLE, PRICE ,CATEGORYID, AUTHORID, PUBLISHERID, URL,RELASEDATE,ISDEFAULT FROM TBLBOOKS TBLBS 
+            $query = "SELECT TBLBS.BOOKID, TITLE, PRICE ,CATEGORYID, AUTHORID, PUBLISHERID, URL,RELASEDATE,ISDEFAULT, STATE FROM TBLBOOKS TBLBS 
 INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
  HAVING ISDEFAULT = 1 AND CATEGORYID = ?";
             $stmt = $this->connect->prepare($query);
@@ -116,7 +117,8 @@ INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
             $listBooks = [];
             while ($row = $stmt->fetch()) {
                 extract($row);
-                $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $RELASEDATE = NULL, $URL);
+                $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $RELASEDATE = NULL, $URL, $STATE);
+                array_push($listAuthors, $author);
                 array_push($listBooks, $books);
             }
             $response->setMessage("get books by category success");
@@ -135,7 +137,7 @@ INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "SELECT TBLBS.BOOKID, TITLE, PRICE ,CATEGORYID, AUTHORID, PUBLISHERID, URL,RELASEDATE,ISDEFAULT FROM TBLBOOKS TBLBS 
+            $query = "SELECT TBLBS.BOOKID, TITLE, PRICE, CATEGORYID, AUTHORID, PUBLISHERID, URL, RELASEDATE, ISDEFAULT, STATE FROM TBLBOOKS TBLBS 
 INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
  HAVING ISDEFAULT = 1 AND TITLE LIKE ?";
             $searchkey = '%' . $searchkey . '%';
@@ -146,7 +148,8 @@ INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
             $listBooks = [];
             while ($row = $stmt->fetch()) {
                 extract($row);
-                $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $RELASEDATE = NULL, $URL);
+                $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $RELASEDATE = NULL, $URL, $STATE);
+                array_push($listAuthors, $author);
                 array_push($listBooks, $books);
             }
             $response->setMessage("get books by search key success");
@@ -165,7 +168,7 @@ INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "SELECT TBLBS.BOOKID, TITLE, PRICE ,CATEGORYID, AUTHORID, PUBLISHERID, URL,RELASEDATE,ISDEFAULT FROM TBLBOOKS TBLBS 
+            $query = "SELECT TBLBS.BOOKID, TITLE, PRICE, CATEGORYID, AUTHORID, PUBLISHERID, URL, RELASEDATE, ISDEFAULT, STATE FROM TBLBOOKS TBLBS 
 INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
  HAVING ISDEFAULT = 1 AND AUTHORID = ?";
             $stmt = $this->connect->prepare($query);
@@ -175,7 +178,8 @@ INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
             $listBooks = [];
             while ($row = $stmt->fetch()) {
                 extract($row);
-                $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $RELASEDATE = NULL, $URL);
+                $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $RELASEDATE = NULL, $URL, $STATE);
+                array_push($listAuthors, $author);
                 array_push($listBooks, $books);
             }
             $response->setMessage("get books by category success");

@@ -5,19 +5,24 @@ class Authors
         public $authorname;
         public $dob;
         public $description;
+        public $state;
 
-        public function __construct($authorid, $authorname, $dob, $description)
+
+        public function __construct($authorid, $authorname, $dob, $description, $state)
         {
                 $this->authorid = $authorid;
                 $this->authorname = $authorname;
                 $this->dob = $dob;
                 $this->description = $description;
+                $this->state = $state;
         }
+
+       
 
         /**
          * Get the value of authorid
          */
-        public function getAuthorID()
+        public function getAuthorid()
         {
                 return $this->authorid;
         }
@@ -25,7 +30,7 @@ class Authors
         /**
          * Set the value of authorid
          */
-        public function setAuthorID($authorid): self
+        public function setAuthorid($authorid): self
         {
                 $this->authorid = $authorid;
 
@@ -35,7 +40,7 @@ class Authors
         /**
          * Get the value of authorname
          */
-        public function getAuthorName()
+        public function getAuthorname()
         {
                 return $this->authorname;
         }
@@ -43,7 +48,7 @@ class Authors
         /**
          * Set the value of authorname
          */
-        public function setAuthorName($authorname): self
+        public function setAuthorname($authorname): self
         {
                 $this->authorname = $authorname;
 
@@ -53,7 +58,7 @@ class Authors
         /**
          * Get the value of dob
          */
-        public function getdob()
+        public function getDob()
         {
                 return $this->dob;
         }
@@ -61,7 +66,7 @@ class Authors
         /**
          * Set the value of dob
          */
-        public function setdob($dob): self
+        public function setDob($dob): self
         {
                 $this->dob = $dob;
 
@@ -82,6 +87,24 @@ class Authors
         public function setDescription($description): self
         {
                 $this->description = $description;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of state
+         */
+        public function getState()
+        {
+                return $this->state;
+        }
+
+        /**
+         * Set the value of state
+         */
+        public function setState($state): self
+        {
+                $this->state = $state;
 
                 return $this;
         }
