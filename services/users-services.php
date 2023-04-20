@@ -41,10 +41,11 @@ class UserServices
     {
         $response = Response::getDefaultInstance();
         try {
+            $passHash= password_hash($data->password,PASSWORD_BCRYPT);
             $query = "INSERT INTO TBLUSERS SET USERID = NULL, EMAIL =?, PASSWORD =?, FULLNAME = ?, PHONENUMBER = ?, ROLE = 1, STATE = 1";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->email);
-            $stmt->bindParam(2, $data->password);
+            $stmt->bindParam(2, $passHash);
             $stmt->bindParam(3, $data->fullname);
             $stmt->bindParam(4, $data->phonenumber);
             $this->connect->beginTransaction();
@@ -139,8 +140,8 @@ class UserServices
                 PASSWORD = ?
                 WHERE EMAIL = ?";
             $stmt = $this->connect->prepare($query);
-
-            $stmt->bindParam(1, $data->password);
+            $passHash= password_hash($data->password,PASSWORD_BCRYPT);
+            $stmt->bindParam(1, $passHash);
             $stmt->bindParam(2, $data->email);
             $this->connect->beginTransaction();
 

@@ -37,10 +37,16 @@ if (isset($data->email)) {
     $mail->addAddress($data->email);
     $mail->addAddress('info@mailtrap.io');
     $mail->isHTML(true);
-    $mailContent = "<h1>Send HTML Email using SMTP in PHP</h1>
-    <p>This is a test email I’m sending using SMTP mail server with PHPMailer.</p>
-    <p>Verification code: .$rand_code</p>";
+    $mail->Subject = 'Xác nhận email của bạn trên BaoStore';
+    $mailContent = "<p>Xin chào .$userMail ,</p>
+    <p>Vui lòng nhập mã ở bên dưới để xác nhận địa chỉ email .$userMail . và đăng ký nhận bản tin
+    từ BaoStore để cập nhật thông tin mới nhất, các trạng thái liên quan đến bảo mật tài khoản!</p>
+    <p>Verification code: .$rand_code</p>
+    <p> Trân trọng,</p>
+    <p> Đội ngũ BaoStore</p>";
     $mail->Body = $mailContent;
+    $mail->AltBody = 'Đây là email tự động. Vui lòng không trả lời email này. Thêm info@mailtrap.io vào danh bạ email của bạn để đảm bảo bạn luôn nhận được email từ chúng tôi.
+    Toà nhà Innovation lô E4 - QTSC, Công viên phần mêm Quang Trung, Phường Tân Chánh Hiệp, Quận 12, TP HCM';
 
     if (!$mail->send()) {
         $response->setMessage("Message could not be sent: " . $mail->ErrorInfo);

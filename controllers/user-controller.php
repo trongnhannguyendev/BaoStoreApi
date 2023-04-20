@@ -18,10 +18,10 @@ class UserController
         $response = $this->services->getUserByEmail($email);
         if ($response->getError() === false) {
             if ($response->getData() !== null) {
-                if (strcmp($password, $response->getData()[0]->getPassword()) == 0) {
-                    $response->setResponeCode(1);
+                if ( password_verify($password, $response->getData()[0]->getPassword())) {
+                    $response->setResponeCode(1); 
                     $response->setMessage("Login successfull");
-                    // $response->getData()[0]->setPassword(null);
+                    $response->getData()[0]->setPassword(null);
                 } else {
                     $response->setResponeCode(0);
                     $response->setMessage("Login failed");
