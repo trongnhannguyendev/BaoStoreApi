@@ -35,6 +35,7 @@ if (isset($data->email)) {
     $mail->setFrom('info@mailtrap.io', 'Mailtrap');
     $mail->addReplyTo('info@mailtrap.io', 'Mailtrap');
     $mail->addAddress($data->email);
+    $userMail = $mail->addAddress($data->email);
     $mail->addAddress('info@mailtrap.io');
     $mail->isHTML(true);
     $mail->Subject = 'Xác nhận email của bạn trên BaoStore';
