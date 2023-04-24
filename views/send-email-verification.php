@@ -17,8 +17,8 @@ require '../vendor/phpmailer/src/Exception.php';
 
 $mail = new PHPMailer();
 $mail->CharSet = "UTF-8";
-$mail->SetLanguage("vi", "phpmailer/language");
-$mail->Encoding="base64";
+// $mail->SetLanguage("vi", "phpmailer/language");
+// $mail->Encoding="base64";
 $data = json_decode(file_get_contents("php://input"));
 $response = Response::getDefaultInstance();
 
