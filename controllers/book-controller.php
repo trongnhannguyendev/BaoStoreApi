@@ -16,10 +16,7 @@ class BookController
     {
         return $this->services->getImagesByBookID($bookid);
     }
-    // public function getBookDetail($bookid)
-    // {
-    //     return $this->services->getBookDetail($bookid);
-    // }
+  
     public function getBooksByCategory($categoryid)
     {
         return $this->services->getBooksByCategory($categoryid);
@@ -40,10 +37,10 @@ class BookController
     {
         return $this->services->updateInformationBook($data);
     }
-    // public function updateQuantityBook($data)
-    // {
-    //     return $this->services->updateQuantityBook($data);
-    // }
+    public function updateQuantityBook($data)
+    {
+        return $this->services->updateQuantityBook($data);
+    }
     public function changeStateBook($data)
     {
         return $this->services->changeStateBook($data);

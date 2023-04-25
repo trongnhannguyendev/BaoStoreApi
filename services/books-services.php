@@ -257,4 +257,34 @@ class BookServices
         }
         return $response;
     }
+    public function updateQuantityBook($data)
+    {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "UPDATE TBLBOOKS SET QUANTITY =? WHERE BOOKID = ?";
+            $stmt = $this->connect->prepare($query);
+
+            $stmt->bindParam(1, $data->quantity);
+            $stmt->bindParam(2, $data->bookid);
+            $this->connect->beginTransaction();
+
+            if ($stmt->execute()) {
+                $this->connect->commit();
+                $response->setMessage("Update quantity book success");
+                $response->setError(false);
+                $response->setResponeCode(1);
+            } else {
+                $this->connect->rollBack();
+                $response->setMessage("Update quantity book failed");
+                $response->setError(true);
+                $response->setResponeCode(0);
+            }
+        } catch (Exception $e) {
+
+            $response->setMessage("Have issue with DB" . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(5);
+        }
+    }
+
 }

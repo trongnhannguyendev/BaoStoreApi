@@ -210,6 +210,34 @@ class OrdersServices
         }
         return $response;
     }
+
+    // public function getOrderByState($data)
+    // {
+    //     $response = Response::getDefaultInstance();
+    //     try {
+    //         $query = "SELECT ORDERID, USERID, CREATEDATE, NOTE, FULLNAME, PHONENUMBER, ADDRESS, PAYMENT, STATE FROM TBLORDERS WHERE USERID =? AND STATE = ?";
+    //         $stmt = $this->connect->prepare($query);
+    //         $stmt->bindParam(1, $data->userid);
+    //         $stmt->bindParam(2, $data->state);
+    //         $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    //         $stmt->execute();
+    //         $listOrder = [];
+    //         while ($row = $stmt->fetch()) {
+    //             extract($row);
+    //             $order = new Orders($ORDERID, $USERID, $CREATEDATE, $NOTE, $FULLNAME, $PHONENUMBER, $ADDRESS, $PAYMENT, $STATE);
+    //             array_push($listOrder, $order);
+    //         }
+    //         $response->setMessage("get all orders success");
+    //         $response->setError(false);
+    //         $response->setResponeCode(1);
+    //         $response->setData($listOrder);
+    //     } catch (Exception $e) {
+    //         $response->setMessage("Have issue with DB" . $e->getMessage());
+    //         $response->setError(true);
+    //         $response->setResponeCode(0);
+    //     }
+    //     return $response;
+    // }
     public function changeStateOrder($data)
     {
         $response = Response::getDefaultInstance();
