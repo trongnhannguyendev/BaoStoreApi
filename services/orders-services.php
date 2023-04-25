@@ -214,7 +214,7 @@ class OrdersServices
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "UPDATE TBLORDER SET STATE = ? WHERE ORDERID = ?";
+            $query = "UPDATE TBLORDERS SET STATE = ? WHERE ORDERID = ?";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->state);
             $stmt->bindParam(2, $data->orderid);
