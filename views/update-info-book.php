@@ -18,7 +18,8 @@ try {
         && isset($data->categoryid)
         && isset($data->authorid)
         && isset($data->publisherid)
-        && isset($data->relasedate)
+        && isset($data->releasedate)
+        && isset($data->description)
         && isset($data->bookid)
 
     ) {

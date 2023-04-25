@@ -11,12 +11,10 @@ $data = json_decode(file_get_contents("php://input"));
 $response = null;
 
 try {
-    if (
-        isset($data->email)
-    ) {
-        $response = (new UserController())->getPasswordByEmail($data->email);
+    if (isset($data->state) && isset($data->userid)) {
+        $response = (new UserController())->changeStateUser($data);
     } else {
-        $response = new Response(3, true, "Can't get password of this email", null);
+        $response = new Response(3, true, "Can't take data from client", null);
     }
 } catch (Exception $ex) {
     $response = new Response(4, true, "Server has issue", null);

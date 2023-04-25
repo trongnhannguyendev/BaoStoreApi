@@ -40,8 +40,12 @@ class BookController
     {
         return $this->services->updateInformationBook($data);
     }
-    public function updateQuantityBook($data)
+    // public function updateQuantityBook($data)
+    // {
+    //     return $this->services->updateQuantityBook($data);
+    // }
+    public function changeStateBook($data)
     {
-        return $this->services->updateQuantityBook($data);
+        return $this->services->changeStateBook($data);
     }
 }

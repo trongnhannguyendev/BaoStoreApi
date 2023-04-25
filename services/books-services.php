@@ -1,7 +1,6 @@
 <?php
 include_once '../configs/dbconfig.php';
 include_once '../models/books.php';
-include_once '../models/book-detail.php';
 include_once '../models/respone.php';
 include_once '../models/categories.php';
 include_once '../models/images.php';
@@ -18,8 +17,8 @@ class BookServices
         $response = Response::getDefaultInstance();
         try {
             $query = "SELECT TBLBS.BOOKID, TITLE, PRICE, QUANTITY ,CATEGORYID, AUTHORID, PUBLISHERID,RELEASEDATE, DESCRIPTION, URL, STATE, ISDEFAULT FROM TBLBOOKS TBLBS 
-INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
- HAVING ISDEFAULT = 1";
+            INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
+            HAVING ISDEFAULT = 1";
             $stmt = $this->connect->prepare($query);
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $stmt->execute();
@@ -45,7 +44,7 @@ INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "SELECT  URL FROM TBLIMAGES WHERE BOOKID = ?";
+            $query = "SELECT URL FROM TBLIMAGES WHERE BOOKID = ?";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $bookid);
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -67,39 +66,6 @@ INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
         }
         return $response;
     }
-
-//     public function getBookDetail($bookid)
-//     {
-//         $response = Response::getDefaultInstance();
-//         try {
-//             $query = "SELECT TBLBS.BOOKID, TITLE, PRICE, QUANTITY,TBLCS.CATEGORYNAME, TBLAS.AUTHORNAME ,TBLPS.PUBLISHERNAME, URL,ISDEFAULT, RELEASEDATE, TBLBS.DESCRIPTION FROM TBLBOOKS TBLBS 
-// INNER JOIN TBLIMAGES TBLIMG ON TBLBS.BOOKID = TBLIMG.BOOKID
-// INNER JOIN TBLAUTHORS TBLAS ON TBLBS.AUTHORID = TBLAS.AUTHORID
-// INNER JOIN TBLPUBLISHERS TBLPS ON TBLBS.PUBLISHERID = TBLPS.PUBLISHERID 
-// INNER JOIN TBLCATEGORIES TBLCS ON TBLBS.CATEGORYID = TBLCS.CATEGORYID
-// HAVING ISDEFAULT = 1 AND BOOKID = ?";
-//             $stmt = $this->connect->prepare($query);
-//             $stmt->bindParam(1, $bookid);
-//             $stmt->setFetchMode(PDO::FETCH_ASSOC);
-//             $stmt->execute();
-//             $listBook = [];
-//             if ($stmt->rowCount() > 0) {
-//                 $row = $stmt->fetch();
-//                 extract($row);
-//                 $books = new BookDetail($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYNAME, $AUTHORNAME, $PUBLISHERNAME, $RELEASEDATE, $DESCRIPTION);
-//                 array_push($listBook, $books);
-//             }
-//             $response->setMessage("get detail book success");
-//             $response->setError(false);
-//             $response->setResponeCode(1);
-//             $response->setData($listBook);
-//         } catch (Exception $e) {
-//             $response->setMessage("Have issue with DB" . $e->getMessage());
-//             $response->setError(true);
-//             $response->setResponeCode(0);
-//         }
-//         return $response;
-//     }
 
     public function getBooksByCategory($categoryid)
     {
@@ -193,7 +159,7 @@ INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "INSERT INTO TBLBOOKS SET BOOKID = NULL, TITLE = ?, PRICE = ?, QUANTITY =?, CATEGORYID =?, AUTHORID =?, PUBLISHERID =?, RELEASEDATE = ?, STATE = 1";
+            $query = "INSERT INTO TBLBOOKS SET BOOKID = NULL, TITLE = ?, PRICE = ?, QUANTITY =?, CATEGORYID =?, AUTHORID =?, PUBLISHERID =?, RELEASEDATE = ?, DESCRIPTION = ?, STATE = 1";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->title);
             $stmt->bindParam(2, $data->price);
@@ -201,7 +167,8 @@ INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
             $stmt->bindParam(4, $data->categoryid);
             $stmt->bindParam(5, $data->authorid);
             $stmt->bindParam(6, $data->publisherid);
-            $stmt->bindParam(7, $data->RELEASEDATE);
+            $stmt->bindParam(7, $data->releasedate);
+            $stmt->bindParam(8, $data->description);
             $this->connect->beginTransaction();
 
             if ($stmt->execute()) {
@@ -228,7 +195,7 @@ INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "UPDATE TBLBOOKS SET TITLE = ?, PRICE = ?, QUANTITY =?, CATEGORYID =?, AUTHORID =?, PUBLISHERID =?, RELEASEDATE = ? WHERE BOOKID = ?";
+            $query = "UPDATE TBLBOOKS SET TITLE = ?, PRICE = ?, QUANTITY =?, CATEGORYID =?, AUTHORID =?, PUBLISHERID =?, RELEASEDATE = ?,DESCRIPTION = ? WHERE BOOKID = ?";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->title);
             $stmt->bindParam(2, $data->price);
@@ -236,8 +203,9 @@ INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
             $stmt->bindParam(4, $data->categoryid);
             $stmt->bindParam(5, $data->authorid);
             $stmt->bindParam(6, $data->publisherid);
-            $stmt->bindParam(7, $data->RELEASEDATE);
-            $stmt->bindParam(8, $data->bookid);
+            $stmt->bindParam(7, $data->releasedate);
+            $stmt->bindParam(8, $data->description);
+            $stmt->bindParam(9, $data->bookid);
             $this->connect->beginTransaction();
 
             if ($stmt->execute()) {
@@ -257,43 +225,14 @@ INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
             $response->setError(true);
             $response->setResponeCode(5);
         }
+        return $response;
     }
 
-    public function updateQuantityBook($data)
+    public function changeStateBook($data)
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "UPDATE TBLBOOKS SET QUANTITY =? WHERE BOOKID = ?";
-            $stmt = $this->connect->prepare($query);
-
-            $stmt->bindParam(1, $data->quantity);
-            $stmt->bindParam(2, $data->bookid);
-            $this->connect->beginTransaction();
-
-            if ($stmt->execute()) {
-                $this->connect->commit();
-                $response->setMessage("Update quantity book success");
-                $response->setError(false);
-                $response->setResponeCode(1);
-            } else {
-                $this->connect->rollBack();
-                $response->setMessage("Update quantity book failed");
-                $response->setError(true);
-                $response->setResponeCode(0);
-            }
-        } catch (Exception $e) {
-
-            $response->setMessage("Have issue with DB" . $e->getMessage());
-            $response->setError(true);
-            $response->setResponeCode(5);
-        }
-    }
-
-    public function changStateBookAllow($data)
-    {
-        $response = Response::getDefaultInstance();
-        try {
-            $query = "UPDATE TBLBOOKS SET STATE = 1 WHERE BOOKID = ?";
+            $query = "UPDATE TBLBOOKS SET STATE = ? WHERE BOOKID = ?";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->state);
             $stmt->bindParam(2, $data->bookid);
@@ -301,12 +240,12 @@ INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
 
             if ($stmt->execute()) {
                 $this->connect->commit();
-                $response->setMessage("Update state success");
+                $response->setMessage("Update state book success");
                 $response->setError(false);
                 $response->setResponeCode(1);
             } else {
                 $this->connect->rollBack();
-                $response->setMessage("Update state failed");
+                $response->setMessage("Update state book failed");
                 $response->setError(true);
                 $response->setResponeCode(0);
             }
@@ -316,33 +255,6 @@ INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
             $response->setError(true);
             $response->setResponeCode(5);
         }
-    }
-    public function changStateBookDeny($data)
-    {
-        $response = Response::getDefaultInstance();
-        try {
-            $query = "UPDATE TBLBOOKS SET STATE = 0 WHERE BOOKID = ?";
-            $stmt = $this->connect->prepare($query);
-            $stmt->bindParam(1, $data->state);
-            $stmt->bindParam(2, $data->bookid);
-            $this->connect->beginTransaction();
-
-            if ($stmt->execute()) {
-                $this->connect->commit();
-                $response->setMessage("Update state success");
-                $response->setError(false);
-                $response->setResponeCode(1);
-            } else {
-                $this->connect->rollBack();
-                $response->setMessage("Update state failed");
-                $response->setError(true);
-                $response->setResponeCode(0);
-            }
-        } catch (Exception $e) {
-
-            $response->setMessage("Have issue with DB" . $e->getMessage());
-            $response->setError(true);
-            $response->setResponeCode(5);
-        }
+        return $response;
     }
 }

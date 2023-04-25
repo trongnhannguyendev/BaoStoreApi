@@ -18,9 +18,8 @@ try {
         && isset($data->categoryid)
         && isset($data->authorid)
         && isset($data->publisherid)
-        && isset(
-            $data->relasedate
-        )
+        && isset($data->releasedate)
+        && isset($data->desctiption)
     ) {
         $response = (new BookController())->insertBook($data);
     } else {
