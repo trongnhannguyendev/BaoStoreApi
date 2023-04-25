@@ -195,17 +195,16 @@ class BookServices
     {
         $response = Response::getDefaultInstance();
         try {
-            $query = "UPDATE TBLBOOKS SET TITLE = ?, PRICE = ?, QUANTITY =?, CATEGORYID =?, AUTHORID =?, PUBLISHERID =?, RELEASEDATE = ?,DESCRIPTION = ? WHERE BOOKID = ?";
+            $query = "UPDATE TBLBOOKS SET TITLE = ?, PRICE = ?, CATEGORYID =?, AUTHORID =?, PUBLISHERID =?, RELEASEDATE = ?, DESCRIPTION = ? WHERE BOOKID = ?";
             $stmt = $this->connect->prepare($query);
             $stmt->bindParam(1, $data->title);
             $stmt->bindParam(2, $data->price);
-            $stmt->bindParam(3, $data->quantity);
-            $stmt->bindParam(4, $data->categoryid);
-            $stmt->bindParam(5, $data->authorid);
-            $stmt->bindParam(6, $data->publisherid);
-            $stmt->bindParam(7, $data->releasedate);
-            $stmt->bindParam(8, $data->description);
-            $stmt->bindParam(9, $data->bookid);
+            $stmt->bindParam(3, $data->categoryid);
+            $stmt->bindParam(4, $data->authorid);
+            $stmt->bindParam(5, $data->publisherid);
+            $stmt->bindParam(6, $data->releasedate);
+            $stmt->bindParam(7, $data->description);
+            $stmt->bindParam(8, $data->bookid);
             $this->connect->beginTransaction();
 
             if ($stmt->execute()) {

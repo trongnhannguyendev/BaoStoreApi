@@ -14,7 +14,6 @@ try {
     if (
         isset($data->title)
         && isset($data->price)
-        && isset($data->quantity)
         && isset($data->categoryid)
         && isset($data->authorid)
         && isset($data->publisherid)
