@@ -285,6 +285,7 @@ class BookServices
             $response->setError(true);
             $response->setResponeCode(5);
         }
+        return $response;
     }
 
 }
