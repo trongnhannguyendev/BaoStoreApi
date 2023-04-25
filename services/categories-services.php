@@ -22,7 +22,6 @@ class CategoriesService
             while ($row = $stmt->fetch()) {
                 extract($row);
                 $cates = new Categories($CATEGORYID, $CATEGORYNAME, $STATE);
-                array_push($listAuthors, $author);
                 array_push($listCates, $cates);
             }
             $response->setMessage("get all cate success");

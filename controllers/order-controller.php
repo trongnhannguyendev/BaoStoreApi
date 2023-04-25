@@ -39,4 +39,8 @@ class OrderController
     {
         return $this->services->getOrderStatusSuccess($userid);
     }
+    public function changeStateOrder($data)
+    {
+        return $this->services->changeStateOrder($data);
+    }
 }

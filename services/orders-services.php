@@ -210,4 +210,32 @@ class OrdersServices
         }
         return $response;
     }
+    public function changeStateOrder($data)
+    {
+        $response = Response::getDefaultInstance();
+        try {
+            $query = "UPDATE TBLORDER SET STATE = ? WHERE ORDERID = ?";
+            $stmt = $this->connect->prepare($query);
+            $stmt->bindParam(1, $data->state);
+            $stmt->bindParam(2, $data->orderid);
+            $this->connect->beginTransaction();
+            if ($stmt->execute()) {
+                $this->connect->commit();
+                $response->setMessage("Update order state success");
+                $response->setError(false);
+                $response->setResponeCode(1);
+            } else {
+                $this->connect->rollBack();
+                $response->setMessage("Update order state failed");
+                $response->setError(true);
+                $response->setResponeCode(0);
+            }
+        } catch (Exception $e) {
+
+            $response->setMessage("Have issue with DB" . $e->getMessage());
+            $response->setError(true);
+            $response->setResponeCode(5);
+        }
+        return $response;
+    }
 }

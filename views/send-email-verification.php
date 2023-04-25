@@ -37,14 +37,14 @@ if (isset($data->email)) {
     $mail->setFrom('info@mailtrap.io', 'Mailtrap');
     $mail->addReplyTo('info@mailtrap.io', 'Mailtrap');
     $mail->addAddress($data->email);
-    $userMail = $mail->addAddress($data->email);
+    $userMail = $data->email;
     $mail->addAddress('info@mailtrap.io');
     $mail->isHTML(true);
     $mail->Subject = 'Xác nhận email của bạn trên BaoStore';
-    $mailContent = "<p>Xin chào .$userMail ,</p>
-    <p>Vui lòng nhập mã ở bên dưới để xác nhận địa chỉ email .$userMail . và đăng ký nhận bản tin
+    $mailContent = "<p>Xin chào $userMail ,</p>
+    <p>Vui lòng nhập mã ở bên dưới để xác nhận địa chỉ email $userMail  và đăng ký nhận bản tin
     từ BaoStore để cập nhật thông tin mới nhất, các trạng thái liên quan đến bảo mật tài khoản!</p>
-    <p>Verification code: .$rand_code</p>
+    <p>Verification code: $rand_code</p>
     <p> Trân trọng,</p>
     <p> Đội ngũ BaoStore</p>";
     $mail->Body = $mailContent;

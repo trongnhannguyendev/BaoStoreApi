@@ -27,7 +27,6 @@ INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 extract($row);
                 $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $RELEASEDATE, $URL, $STATE);
-                array_push($listAuthors, $author);
                 array_push($listBook, $books);
             }
             $response->setMessage("get all books success");
@@ -118,7 +117,6 @@ INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
             while ($row = $stmt->fetch()) {
                 extract($row);
                 $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $RELASEDATE = NULL, $URL, $STATE);
-                array_push($listAuthors, $author);
                 array_push($listBooks, $books);
             }
             $response->setMessage("get books by category success");
@@ -149,7 +147,6 @@ INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
             while ($row = $stmt->fetch()) {
                 extract($row);
                 $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $RELASEDATE = NULL, $URL, $STATE);
-                array_push($listAuthors, $author);
                 array_push($listBooks, $books);
             }
             $response->setMessage("get books by search key success");
@@ -179,7 +176,6 @@ INNER JOIN TBLIMAGES TBLIS ON TBLBS.BOOKID = TBLIS.BOOKID
             while ($row = $stmt->fetch()) {
                 extract($row);
                 $books = new Book($BOOKID, $TITLE, $PRICE, $QUANTITY, $CATEGORYID, $AUTHORID, $PUBLISHERID, $RELASEDATE = NULL, $URL, $STATE);
-                array_push($listAuthors, $author);
                 array_push($listBooks, $books);
             }
             $response->setMessage("get books by category success");
